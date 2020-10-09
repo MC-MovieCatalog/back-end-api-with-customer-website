@@ -1,12 +1,58 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
+<!doctype html>
+<html lang="en-US">
+   <head>
+      <!--common css -->
+      <!-- Required meta tags -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="{{ asset('assets/movie_book_front_office/images/favicon.ico') }}" />
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="{{ asset('assets/movie_book_front_office/css/bootstrap.min.css') }}" />
+      <!-- Typography CSS -->
+      <link rel="stylesheet" href="{{ asset('assets/movie_book_front_office/css/typography.css') }}">
+      <!-- Style -->
+      <link rel="stylesheet" href="{{ asset('assets/movie_book_front_office/css/style.css') }}" />
+      <!-- Responsive -->
+      <link rel="stylesheet" href="{{ asset('assets/movie_book_front_office/css/responsive.css') }}" />
+
+    <title>MovieBook{% block title %}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+
+   </head>
     <body>
+        {% include "/partials_layout/hearder.base.html.twig" %}
+
+        <!--Start Main app-->
         {% block body %}{% endblock %}
+        <!--End Main app-->
+        
+
+        {% include "/partials_layout/footer.base.html.twig" %}
+
+        <!--Start custom js-->
         {% block javascripts %}{% endblock %}
+        <!--Start custom js-->
+
+        <!-- common js -->
+
+        <!-- jQuery, Popper JS -->
+        <script src="{{ asset('assets/movie_book_front_office/js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ asset('assets/movie_book_front_office/js/popper.min.js') }}"></script>
+        <!-- Bootstrap JS -->
+        <script src="{{ asset('assets/movie_book_front_office/js/bootstrap.min.js') }}"></script>
+        <!-- Slick JS -->
+        <script src="{{ asset('assets/movie_book_front_office/js/slick.min.js') }}"></script>
+        <!-- owl carousel Js -->
+        <script src="{{ asset('assets/movie_book_front_office/js/owl.carousel.min.js') }}"></script>
+        <!-- select2 Js -->
+        <script src="{{ asset('assets/movie_book_front_office/js/select2.min.js') }}"></script>
+        <!-- Magnific Popup-->
+        <script src="{{ asset('assets/movie_book_front_office/js/jquery.magnific-popup.min.js') }}"></script>
+        <!-- Slick Animation-->
+        <script src="{{ asset('assets/movie_book_front_office/js/slick-animation.min.js') }}"></script>
+        <!-- Custom JS-->
+        <script src="{{ asset('assets/movie_book_front_office/js/custom.js') }}"></script>
     </body>
 </html>
