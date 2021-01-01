@@ -16,15 +16,15 @@ Pour installer les paquets nécessaires, lancez la commande suivante
 composer install
 ````
 ### Fichier .env local
-Dupliquez le fichier .env, puis renommez le .env.copy vers .env.locl et compléter avec les informations de votre système (infos : base de données, login, password etc...)
+Dupliquez le fichier .env, puis renommez le .env.copy vers .env.local et compléter avec les informations de votre système (infos : base de données, login, password etc...)
 
 Exemple (à personnaliser en fonction de votre configuration):
 ````bash
 Avant : 
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 
-Après : 
-DATABASE_URL=mysql://monUser:monPassword@127.0.0.1:3306/maBd
+Après :
+DATABASE_URL="mysql://monUser:monPassword@127.0.0.1:3306/maBd?serverVersion=mariadb-10.4.10"
 ````
 
 ### Création de la base de données
