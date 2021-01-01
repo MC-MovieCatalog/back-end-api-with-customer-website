@@ -5,7 +5,7 @@ Pour faire fonctionner le code, vous aurez besoin de la configurartion minimale 
 ````bash
 PHP 7.4.2
 MariaDB 10.4.10
-Nginx ou Apache 2
+Apache 2
 Prise en charge du HTTPS
 ````
 
@@ -15,9 +15,6 @@ Pour installer les paquets nécessaires, lancez la commande suivante
 ````bash
 composer install
 ````
-
-## Variables d'environnement
-
 ### Fichier .env local
 Dupliquez le fichier .env, puis renommez le .env.copy vers .env.locl et compléter avec les informations de votre système (infos : base de données, login, password etc...)
 
