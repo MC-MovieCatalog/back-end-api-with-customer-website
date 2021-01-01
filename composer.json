@@ -86,7 +86,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "load-data": {
+            "deleteDBIfExists": "php bin/console doctrine:database:drop --force",
+            "createDB": "php bin/console doctrine:database:create",
+            "migrationToDB": "php bin/console doctrine:migrations:migrate",
+            "loadFixture": "php bin/console doctrine:fixtures:load --append --no-interaction"
     },
     "conflict": {
         "symfony/symfony": "*"
