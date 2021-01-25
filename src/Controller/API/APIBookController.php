@@ -44,7 +44,7 @@ class APIBookController extends APIDefaultController
     /**
      * This function returns the books list or not found error.
      * 
-     * @Route("/books", methods="GET")
+     * @Route("/books", methods={"GET"})
      */
     public function apiBookIndex()
     {
@@ -61,7 +61,7 @@ class APIBookController extends APIDefaultController
      * This function retrieves the json book sent in the http request, transforms it into a book entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/books/add", methods="POST")
+     * @Route("/books/add", methods={"POST"})
      */
     public function apiBookCreate(Request $request)
     {
@@ -104,7 +104,7 @@ class APIBookController extends APIDefaultController
 
     /**
      * This function returns the book whose identifier is given as a parameter
-     * @Route("/books/{id}", methods="GET")
+     * @Route("/books/{id}", methods={"GET"})
      */
     public function apiBookShow(Book $book = null, Request $request)
     {
@@ -126,7 +126,7 @@ class APIBookController extends APIDefaultController
     /**
      * This function retrieves the json book sent in the http request, transforms it into a book entity and then updates it in the database.
      * 
-     * @Route("/books/{id}/edit", methods="PUT")
+     * @Route("/books/{id}/edit", methods={"PUT","PATCH"})
      */
     public function apiBookEdit(Book $book = null, Request $request)
     {
@@ -187,6 +187,28 @@ class APIBookController extends APIDefaultController
                     return $this->bookValidate->bookUpdateValidateRequest($jsonDataRequestToEditBook);
                 }
             }
+        }
+    }
+
+    /**
+     * This function deletes the book whose identifier is given in parameter
+     * @Route("/books/{id}/delete", methods={"DELETE"})
+     */
+    public function apiBookDelete(Book $book = null, Request $request)
+    {
+        $error = 'La ressource que vous cherchez à supprimer n\'a été trouvé...';
+        $success = ['Success' => 'La ressource a bien été supprimée...'];
+
+        if (empty($book)) {
+            return $this->respondNotFound($error); // throw new NotFoundHttpException($error);
+        } else if ($request->get('id') !== (string)$book->getId()) {
+            return $this->respondNotFound($error); // throw new NotFoundHttpException($error);
+        } else if (!empty($book)) {
+            $this->manager->remove($book);
+            $this->manager->flush();
+            return $this->respond($success);
+        } else {
+            return $this->respondNotFound($error); // throw new NotFoundHttpException($error);
         }
     }
 }
