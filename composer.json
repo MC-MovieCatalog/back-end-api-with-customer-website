@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "moviebook/moviebook",
+    "description": "description",    
     "require": {
         "php": ">=7.2.5",
         "ext-ctype": "*",
@@ -105,7 +107,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.1.*"
+            "require": "5.2.*"
         }
     }
 }
