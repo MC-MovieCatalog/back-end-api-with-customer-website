@@ -40,7 +40,8 @@ class BookValidate extends ErrorAssert
         return $pageNbErrors;
     }
 
-    protected function contentValidated($request){
+    protected function contentValidated($request)
+    {
         $contentErrors = [];
 
         // if not string value ?
@@ -55,7 +56,8 @@ class BookValidate extends ErrorAssert
         return $contentErrors;
     }
 
-    protected function descriptionValidated($request){
+    protected function descriptionValidated($request)
+    {
         $descriptionErrors = [];
 
         // if not string value ?
@@ -74,7 +76,8 @@ class BookValidate extends ErrorAssert
         return $descriptionErrors;
     }
 
-    protected function titleValidated($request){
+    protected function titleValidated($request)
+    {
         $titleErrors = [];
         // if not string value ?
         if ($this->errorStringAssert($request, 'title')) {
@@ -92,7 +95,8 @@ class BookValidate extends ErrorAssert
         return $titleErrors;
     }
 
-    protected function priceValidated($request){
+    protected function priceValidated($request)
+    {
         $priceErrors = [];
         // if not float/double value ?
         if ($this->errorFloatAssert($request, 'price')) {
@@ -102,9 +106,10 @@ class BookValidate extends ErrorAssert
         return $priceErrors;
     }
 
-    protected function coverValidated($request){
+    protected function coverValidated($request)
+    {
         $coverErrors = [];
-        
+
         // if not string value ?
         if ($this->errorStringAssert($request, 'cover')) {
             array_push($coverErrors, $this->errorStringAssert($request, 'cover'));
@@ -121,7 +126,8 @@ class BookValidate extends ErrorAssert
         return $coverErrors;
     }
 
-    protected function authorValidated($request){
+    protected function authorValidated($request)
+    {
         $authorErrors = [];
         // if not string value ?
         if ($this->errorStringAssert($request, 'author')) {
@@ -168,7 +174,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'content')) {
             array_push($errors, $this->errorEmptyAssert($request, 'content', 'Le contenu ne peut pas être vide'));
-        } else if ($this->contentValidated($request)){
+        } else if ($this->contentValidated($request)) {
             foreach ($this->contentValidated($request) as $contentError) {
                 array_push($errors, $contentError);
             }
@@ -179,7 +185,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'description')) {
             array_push($errors, $this->errorEmptyAssert($request, 'description', 'La description ne peut pas être vide'));
-        } else if ($this->descriptionValidated($request)){
+        } else if ($this->descriptionValidated($request)) {
             foreach ($this->descriptionValidated($request) as $descriptionError) {
                 array_push($errors, $descriptionError);
             }
@@ -190,7 +196,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'title')) {
             array_push($errors, $this->errorEmptyAssert($request, 'title', 'Le titre ne peut pas être vide'));
-        } else if ($this->titleValidated($request)){
+        } else if ($this->titleValidated($request)) {
             foreach ($this->titleValidated($request) as $titleError) {
                 array_push($errors, $titleError);
             }
@@ -201,7 +207,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'price')) {
             array_push($errors, $this->errorEmptyAssert($request, 'price', 'Le prix ne peut pas être vide'));
-        } else if ($this->priceValidated($request)){
+        } else if ($this->priceValidated($request)) {
             foreach ($this->priceValidated($request) as $priceError) {
                 array_push($errors, $priceError);
             }
@@ -212,7 +218,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'cover')) {
             array_push($errors, $this->errorEmptyAssert($request, 'cover', 'La couverture ne peut pas être vide'));
-        } else if ($this->coverValidated($request)){
+        } else if ($this->coverValidated($request)) {
             foreach ($this->coverValidated($request) as $coverError) {
                 array_push($errors, $coverError);
             }
@@ -223,7 +229,7 @@ class BookValidate extends ErrorAssert
         // if empty field ?
         if ($this->errorEmptyAssert($request, 'author')) {
             array_push($errors, $this->errorEmptyAssert($request, 'author', 'L\'auteur ne peut pas être vide'));
-        } else if ($this->authorValidated($request)){
+        } else if ($this->authorValidated($request)) {
             foreach ($this->authorValidated($request) as $authorError) {
                 array_push($errors, $authorError);
             }
@@ -329,6 +335,20 @@ class BookValidate extends ErrorAssert
             foreach ($this->authorValidated($request) as $authorError) {
                 array_push($errors, $authorError);
             }
+        }
+
+        // if field = 0
+        if (
+            !$this->errorDefinedAssert($request, 'pageNb')
+            && !$this->errorDefinedAssert($request, 'content')
+            && !$this->errorDefinedAssert($request, 'description')
+            && !$this->errorDefinedAssert($request, 'title')
+            && !$this->errorDefinedAssert($request, 'price')
+            && !$this->errorDefinedAssert($request, 'cover')
+            && !$this->errorDefinedAssert($request, 'author')
+
+        ) {
+            array_push($errors, ['Error' => 'Aucune modification détectée, merci de vérifier...']);
         }
 
         return $errors;
