@@ -74,7 +74,7 @@ class BookRepository extends ServiceEntityRepository
             'title' => (string) $book->getTitle(),
             'price' => (float) $book->getPrice(),
             'cover' => (string) $book->getCover(),
-            'createdAt' => $this->convertDate->toDateTimeFr($book->getCreatedAt()->format('Y-m-d H:i:s'), true),
+            'createdAt' => (string) $this->convertDate->toDateTimeFr($book->getCreatedAt()->format('Y-m-d H:i:s'), true),
             /*
                 // Other possible formats to be completed as needed
                 'createdAt' => $this->convertDate->toStrDateTimeFr($book->getCreatedAt()->format('Y-m-d H:i:s'), false),
