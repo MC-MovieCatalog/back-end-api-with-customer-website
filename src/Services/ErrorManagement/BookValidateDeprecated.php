@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\ErrorManagement;
 
-use App\Services\ErrorAssert;
-use App\Controller\API\APIDefaultController;
+use App\Services\ErrorManagement\ErrorAssert;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * This class handles errors for the book controller
  */
-class BookValidate extends ErrorAssert
+class BookValidateDeprecated extends ErrorAssert
 {
     protected function pageNbValidated($request)
     {
@@ -70,7 +69,7 @@ class BookValidate extends ErrorAssert
         }
         // if > max lenght ?
         if ($this->errorStringMaxLenghtAssert($request, 'description', 255)) {
-            array_push($descriptionErrors, $this->errorStringAssert($request, 'description', 255));
+            array_push($descriptionErrors, $this->errorStringMaxLenghtAssert($request, 'description', 255));
         }
 
         return $descriptionErrors;
@@ -89,7 +88,7 @@ class BookValidate extends ErrorAssert
         }
         // if > max lenght ?
         if ($this->errorStringMaxLenghtAssert($request, 'title', 80)) {
-            array_push($titleErrors, $this->errorStringAssert($request, 'title', 80));
+            array_push($titleErrors, $this->errorStringMaxLenghtAssert($request, 'title', 80));
         }
 
         return $titleErrors;
@@ -120,7 +119,7 @@ class BookValidate extends ErrorAssert
         }
         // if > max lenght ?
         if ($this->errorStringMaxLenghtAssert($request, 'cover', 255)) {
-            array_push($coverErrors, $this->errorStringAssert($request, 'cover', 255));
+            array_push($coverErrors, $this->errorStringMaxLenghtAssert($request, 'cover', 255));
         }
 
         return $coverErrors;
@@ -139,7 +138,7 @@ class BookValidate extends ErrorAssert
         }
         // if > max lenght ?
         if ($this->errorStringMaxLenghtAssert($request, 'author', 255)) {
-            array_push($authorErrors, $this->errorStringAssert($request, 'author', 255));
+            array_push($authorErrors, $this->errorStringMaxLenghtAssert($request, 'author', 255));
         }
 
         return $authorErrors;

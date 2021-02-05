@@ -3,7 +3,7 @@
 namespace App\Controller\API;
 
 use App\Entity\Book;
-use App\Services\BookValidate;
+use App\Services\ErrorManagement\BookValidate;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
 /**
- * Undocumented class
+ * API Book Controller
  * @Route("/api")
  */
 class APIBookController extends APIDefaultController
@@ -50,7 +50,7 @@ class APIBookController extends APIDefaultController
     {
         $books = $this->bookRepo->getAllBooks();
 
-        if ($books != 'Aucune livre en stock pour le moment') {
+        if ($books != 'Aucun livre en stock pour le moment') {
             return $this->respond($books);
         } else {
             return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
