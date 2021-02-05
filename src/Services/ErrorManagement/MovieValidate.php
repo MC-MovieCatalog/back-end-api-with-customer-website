@@ -21,14 +21,14 @@ class MovieValidate extends CustomValidator
 
         $errors = [];
 
-        $duration = $this->customStringValidator($request, 'duration', 2, 255);
-        $link = $this->customUrlValidator($request, 'link', 28, 255);
-        $description = $this->customStringValidator($request, 'description', 11, 255);
-        $title = $this->customStringValidator($request, 'title', 5, 80);
-        $price = $this->customFloatValidator($request, 'price');
-        $cover = $this->customStringValidator($request, 'cover', 5, 255);
-        $director = $this->customStringValidator($request, 'director', 5, 255);
-        $trailer = $this->customStringValidator($request, 'trailer', 5, 255);
+        $duration = $this->errorDefinedAssert($request, 'duration') ? $this->customStringValidator($request, 'duration', 2, 255): null;
+        $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
+        $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
+        $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
+        $director = $this->errorDefinedAssert($request, 'director') ? $this->customStringValidator($request, 'director', 5, 255): null;
+        $trailer = $this->errorDefinedAssert($request, 'trailer') ? $this->customStringValidator($request, 'trailer', 5, 255): null;
 
         // duration
 
@@ -138,7 +138,6 @@ class MovieValidate extends CustomValidator
                 if (!in_array($error, $errorsToDisplay)) {
                     array_push($errorsToDisplay, $error);
                 }
-                // dd($errorsToDisplay);
             }
         }
 
@@ -160,14 +159,14 @@ class MovieValidate extends CustomValidator
 
         $errors = [];
 
-        $duration = $this->customStringValidator($request, 'duration', 2, 255);
-        $link = $this->customUrlValidator($request, 'link', 28, 255);
-        $description = $this->customStringValidator($request, 'description', 11, 255);
-        $title = $this->customStringValidator($request, 'title', 5, 80);
-        $price = $this->customFloatValidator($request, 'price');
-        $cover = $this->customStringValidator($request, 'cover', 5, 255);
-        $director = $this->customStringValidator($request, 'director', 5, 255);
-        $trailer = $this->customStringValidator($request, 'trailer', 5, 255);
+        $duration = $this->errorDefinedAssert($request, 'duration') ? $this->customStringValidator($request, 'duration', 2, 255): null;
+        $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
+        $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
+        $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
+        $director = $this->errorDefinedAssert($request, 'director') ? $this->customStringValidator($request, 'director', 5, 255): null;
+        $trailer = $this->errorDefinedAssert($request, 'trailer') ? $this->customStringValidator($request, 'trailer', 5, 255): null;
 
         // duration
 
@@ -272,7 +271,9 @@ class MovieValidate extends CustomValidator
 
         foreach ($errors as $error) {
             if ($error !== null) {
-                array_push($errorsToDisplay, $error);
+                if (!in_array($error, $errorsToDisplay)) {
+                    array_push($errorsToDisplay, $error);
+                }
             }
         }
 

@@ -21,13 +21,13 @@ class BookValidate extends CustomValidator
 
         $errors = [];
 
-        $pageNb = $this->customIntegerValidator($request, 'pageNb', 1, 10, 1, 2147483647);
-        $content = $this->customStringValidator($request, 'content', 1000, null);
-        $description = $this->customStringValidator($request, 'description', 11, 255);
-        $title = $this->customStringValidator($request, 'title', 5, 80);
-        $price = $this->customFloatValidator($request, 'price');
-        $cover = $this->customStringValidator($request, 'cover', 5, 255);
-        $author = $this->customStringValidator($request, 'author', 2, 255);
+        $pageNb = $this->errorDefinedAssert($request, 'pageNb') ? $this->customIntegerValidator($request, 'pageNb', 1, 10, 1, 2147483647): null;
+        $content = $this->errorDefinedAssert($request, 'content') ? $this->customStringValidator($request, 'content', 1000, null): null;
+        $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
+        $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
+        $author = $this->errorDefinedAssert($request, 'author') ? $this->customStringValidator($request, 'author', 2, 255): null;
 
         // pageNb
 
@@ -125,7 +125,6 @@ class BookValidate extends CustomValidator
                 if (!in_array($error, $errorsToDisplay)) {
                     array_push($errorsToDisplay, $error);
                 }
-                // dd($errorsToDisplay);
             }
         }
 
@@ -147,13 +146,13 @@ class BookValidate extends CustomValidator
 
         $errors = [];
 
-        $pageNb = $this->customIntegerValidator($request, 'pageNb', 1, 10, 1, 2147483647);
-        $content = $this->customStringValidator($request, 'content', 1000, null);
-        $description = $this->customStringValidator($request, 'description', 11, 255);
-        $title = $this->customStringValidator($request, 'title', 5, 80);
-        $price = $this->customFloatValidator($request, 'price');
-        $cover = $this->customStringValidator($request, 'cover', 5, 255);
-        $author = $this->customStringValidator($request, 'author', 2, 255);
+        $pageNb = $this->errorDefinedAssert($request, 'pageNb') ? $this->customIntegerValidator($request, 'pageNb', 1, 10, 1, 2147483647): null;
+        $content = $this->errorDefinedAssert($request, 'content') ? $this->customStringValidator($request, 'content', 1000, null): null;
+        $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
+        $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
+        $author = $this->errorDefinedAssert($request, 'author') ? $this->customStringValidator($request, 'author', 2, 255): null;
 
         // pageNb
 
@@ -248,7 +247,9 @@ class BookValidate extends CustomValidator
 
         foreach ($errors as $error) {
             if ($error !== null) {
-                array_push($errorsToDisplay, $error);
+                if (!in_array($error, $errorsToDisplay)) {
+                    array_push($errorsToDisplay, $error);
+                }
             }
         }
 
