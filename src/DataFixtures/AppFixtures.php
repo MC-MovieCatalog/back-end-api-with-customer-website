@@ -17,19 +17,21 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         
         $content = '<p>' . join('</p><p>', $faker->paragraphs(20)) . '</p>';
-        
+
         // $addressTypes = ['Facturation', 'Livraison'];
 
         for ($b = 1; $b <= 10; $b++) {
             $book = new Book();
 
+            $authorFullName = ucfirst($faker->firstName)." ".strtoupper($faker->lastName);
+
             $book->setPageNb($faker->randomNumber(2))
                  ->setContent($content)
                  ->setDescription($faker->text)
-                 ->setTitle($faker->title)
+                 ->setTitle($faker->sentence(4))
                  ->setPrice($faker->randomFloat(2, 3, 1.01))
                  ->setCover($faker->imageUrl(132, 183))
-                 ->setAuthor(ucfirst($faker->firstName), strtoupper($faker->lastName));
+                 ->setAuthor($authorFullName);
 
             $manager->persist($book);
         }
@@ -37,13 +39,15 @@ class AppFixtures extends Fixture
         for ($m = 1; $m <= 10; $m++) {
             $movie = new Movie();
 
+            $directorFullName = ucfirst($faker->firstName)." ".strtoupper($faker->lastName);
+
             $movie->setDuration("78")
                  ->setLink("https://www.youtube.com/watch?v=U-ghgkxnmUk")
                  ->setDescription($faker->text)
-                 ->setTitle($faker->title)
+                 ->setTitle($faker->sentence(4))
                  ->setPrice($faker->randomFloat(2, 3, 1.01))
                  ->setCover($faker->imageUrl(132, 183))
-                 ->setDirector(ucfirst($faker->firstName), strtoupper($faker->lastName))
+                 ->setDirector($directorFullName)
                  ->setTrailer("https://www.youtube.com/watch?v=HpzzrqJi6ko");
 
             $manager->persist($movie);
