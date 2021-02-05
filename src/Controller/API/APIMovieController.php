@@ -102,7 +102,7 @@ class APIMovieController extends APIDefaultController
      */
     public function apiMovieShow(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
 
         if (empty($movie)) {
             return $this->respondNotFound($error);
@@ -123,7 +123,7 @@ class APIMovieController extends APIDefaultController
      */
     public function apiMovieEdit(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à modifier n\'a été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
 
         if (empty($movie)) {
             return $this->respondNotFound($error);
@@ -174,7 +174,7 @@ class APIMovieController extends APIDefaultController
 
                     // Returns the created movie, with the correct headers and code 201.
                     
-                    return $this->respondCreated($this->movieRepo->movieTransform($movie));
+                    return $this->respondCreated($this->movieRepo->getMovieById($movie->getId()));
                 } else {
                     return $this->movieValidate->movieUpdateValidateRequest($jsonDataRequestToEditMovie);
                 }
@@ -188,7 +188,7 @@ class APIMovieController extends APIDefaultController
      */
     public function apiMovieDelete(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à supprimer n\'a été trouvé...';
+        $error = 'La ressource que vous cherchez à supprimer n\'a pas été trouvé...';
         $success = ['Success' => 'La ressource a bien été supprimée...'];
 
         if (empty($movie)) {
