@@ -108,7 +108,7 @@ class APIBookController extends APIDefaultController
      */
     public function apiBookShow(Book $book = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
 
         if (empty($book)) {
             return $this->respondNotFound($error); // throw new NotFoundHttpException($error);
@@ -130,7 +130,7 @@ class APIBookController extends APIDefaultController
      */
     public function apiBookEdit(Book $book = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à modifier n\'a été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
 
         if (empty($book)) {
             return $this->respondNotFound($error); // throw new NotFoundHttpException($error);
@@ -196,7 +196,7 @@ class APIBookController extends APIDefaultController
      */
     public function apiBookDelete(Book $book = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à supprimer n\'a été trouvé...';
+        $error = 'La ressource que vous cherchez à supprimer n\'a pas été trouvé...';
         $success = ['Success' => 'La ressource a bien été supprimée...'];
 
         if (empty($book)) {
