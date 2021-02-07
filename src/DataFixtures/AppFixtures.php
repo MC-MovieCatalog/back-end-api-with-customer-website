@@ -14,46 +14,54 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
+        // Commons variables
+
         $faker = Factory::create('fr_FR');
+
+        $addressTypes = ['Facturation', 'Livraison'];
+
+        $fakeData = new FakeData();
+
+
+        // Book
+        $fakeBooks = $fakeData->getBooks();
         
-        $content = '<p>' . join('</p><p>', $faker->paragraphs(20)) . '</p>';
-
-        // $addressTypes = ['Facturation', 'Livraison'];
-
-        for ($b = 1; $b <= 10; $b++) {
+        foreach ($fakeBooks as $bookData) {
             $book = new Book();
 
-            $authorFullName = ucfirst($faker->firstName)." ".strtoupper($faker->lastName);
-
-            $book->setPageNb($faker->randomNumber(2))
-                 ->setContent($content)
-                 ->setDescription($faker->text)
-                 ->setTitle($faker->sentence(4))
-                 ->setPrice($faker->randomFloat(2, 3, 1.01))
-                 ->setCover($faker->imageUrl(132, 183))
-                 ->setAuthor($authorFullName);
+            $book->setPageNb($bookData['pageNb'])
+                 ->setContent($bookData['content'])
+                 ->setDescription($bookData['description'])
+                 ->setTitle($bookData['title'])
+                 ->setPrice($bookData['price'])
+                 ->setCover($bookData['cover'])
+                 ->setAuthor($bookData['author']);
 
             $manager->persist($book);
+            
         }
 
-        for ($m = 1; $m <= 10; $m++) {
+        // Movie 
+        $fakeMovies = $fakeData->getMovies();
+        
+        foreach ($fakeMovies as $movieData) {
             $movie = new Movie();
 
-            $directorFullName = ucfirst($faker->firstName)." ".strtoupper($faker->lastName);
-
-            $movie->setDuration("78")
-                 ->setLink("https://www.youtube.com/watch?v=U-ghgkxnmUk")
-                 ->setDescription($faker->text)
-                 ->setTitle($faker->sentence(4))
-                 ->setPrice($faker->randomFloat(2, 3, 1.01))
-                 ->setCover($faker->imageUrl(132, 183))
-                 ->setDirector($directorFullName)
-                 ->setTrailer("https://www.youtube.com/watch?v=HpzzrqJi6ko");
+            $movie->setDuration($movieData['duration'])
+                 ->setLink($movieData['link'])
+                 ->setDescription($movieData['description'])
+                 ->setTitle($movieData['title'])
+                 ->setPrice($movieData['price'])
+                 ->setCover($movieData['cover'])
+                 ->setDirector($movieData['director'])
+                 ->setTrailer($movieData['trailer']);
 
             $manager->persist($movie);
+            
         }
 
-        /*
+        // Address
+
         for ($a = 1; $a <= 10; $a++) {
             $address = new Address();
 
@@ -65,8 +73,8 @@ class AppFixtures extends Fixture
 
             $manager->persist($address);
         }
-        */
 
+        // Flush
         $manager->flush();
     }
 }
