@@ -18,8 +18,6 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
-        $addressTypes = ['Facturation', 'Livraison'];
-
         $fakeData = new FakeData();
 
 
@@ -61,15 +59,16 @@ class AppFixtures extends Fixture
         }
 
         // Address
+        $fakeAddresses = $fakeData->getAddresses();
 
-        for ($a = 1; $a <= 10; $a++) {
+        foreach ($fakeAddresses as $fakeAddress) {
             $address = new Address();
 
-            $address->setStreetNb(strval($faker->randomNumber(3)))
-                    ->setAddress($faker->streetName)
-                    ->setPostal($faker->postcode)
-                    ->setCity($faker->city)
-                    ->setType($faker->randomElement($addressTypes));
+            $address->setStreetNb($fakeAddress['streetNb'])
+                    ->setAddress($fakeAddress['address'])
+                    ->setPostal($fakeAddress['postal'])
+                    ->setCity($fakeAddress['city'])
+                    ->setType($fakeAddress['type']);
 
             $manager->persist($address);
         }
