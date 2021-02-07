@@ -143,7 +143,7 @@ class APIMovieController extends APIDefaultController
                 ], 400);
             } else {
                 // Validate json request data
-                if ($this->movieValidate->MovieUpdateValidateRequest($jsonDataRequestToEditMovie) === null) {
+                if ($this->movieValidate->movieUpdateValidateRequest($jsonDataRequestToEditMovie) === null) {
                     if (array_key_exists("duration", $jsonDataRequestToEditMovie)){
                         $movie->setDuration($jsonDataRequestToEditMovie["duration"]);
                     }
