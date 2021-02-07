@@ -95,7 +95,7 @@ class BookRepository extends ServiceEntityRepository
             $booksArray = [];
 
             foreach ($books as $book) {
-                $booksArray[] = $this->transform($book);
+                $booksArray[] = $this->bookTransform($book);
             }
 
             return $booksArray;
