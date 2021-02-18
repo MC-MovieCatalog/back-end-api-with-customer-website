@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MovieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,6 +65,22 @@ class Movie
      * @ORM\Column(type="string", length=255)
      */
     private $trailer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Bill::class, mappedBy="movies")
+     */
+    private $bills;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OnGoing::class, mappedBy="movie", orphanRemoval=true)
+     */
+    private $onGoing;
+
+    public function __construct()
+    {
+        $this->bills = new ArrayCollection();
+        $this->onGoing = new ArrayCollection();
+    }
 
     /**
      * Automatically assign the current date
@@ -187,6 +205,63 @@ class Movie
     public function setTrailer(string $trailer): self
     {
         $this->trailer = $trailer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bill[]
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
+
+    public function addBill(Bill $bill): self
+    {
+        if (!$this->bills->contains($bill)) {
+            $this->bills[] = $bill;
+            $bill->addMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->removeElement($bill)) {
+            $bill->removeMovie($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OnGoing[]
+     */
+    public function getOnGoing(): Collection
+    {
+        return $this->onGoing;
+    }
+
+    public function addOnGoing(OnGoing $onGoing): self
+    {
+        if (!$this->onGoing->contains($onGoing)) {
+            $this->onGoing[] = $onGoing;
+            $onGoing->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOnGoing(OnGoing $onGoing): self
+    {
+        if ($this->onGoing->removeElement($onGoing)) {
+            // set the owning side to null (unless already changed)
+            if ($onGoing->getMovie() === $this) {
+                $onGoing->setMovie(null);
+            }
+        }
 
         return $this;
     }
