@@ -92,7 +92,14 @@ class Book
 
     public function getContent()
     {
-        return $this->content;
+        // return $this->content;
+        return ($this->content === null) ? null : base64_encode($this->content);
+    }
+
+    public function getContentReadOnly()
+    {
+        // return $this->content;
+        return ($this->content === null) ? null : base64_encode(stream_get_contents($this->content));
     }
 
     public function setContent($content): self
