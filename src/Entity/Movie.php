@@ -72,7 +72,7 @@ class Movie
     private $bills;
 
     /**
-     * @ORM\OneToMany(targetEntity=OnGoing::class, mappedBy="movie", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Ongoing::class, mappedBy="movie", orphanRemoval=true)
      */
     private $onGoing;
 
@@ -90,12 +90,13 @@ class Movie
      * 
      * @return void
      */
-    public function prePersistPreUpdate() {
-        if(empty($this->createdAt)) {
+    public function prePersistPreUpdate()
+    {
+        if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime();
         }
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -237,14 +238,14 @@ class Movie
     }
 
     /**
-     * @return Collection|OnGoing[]
+     * @return Collection|Ongoing[]
      */
-    public function getOnGoing(): Collection
+    public function getOngoing(): Collection
     {
         return $this->onGoing;
     }
 
-    public function addOnGoing(OnGoing $onGoing): self
+    public function addOngoing(Ongoing $onGoing): self
     {
         if (!$this->onGoing->contains($onGoing)) {
             $this->onGoing[] = $onGoing;
@@ -254,7 +255,7 @@ class Movie
         return $this;
     }
 
-    public function removeOnGoing(OnGoing $onGoing): self
+    public function removeOngoing(Ongoing $onGoing): self
     {
         if ($this->onGoing->removeElement($onGoing)) {
             // set the owning side to null (unless already changed)

@@ -132,4 +132,16 @@ class MovieRepository extends ServiceEntityRepository
             return $this->transform($movie);
         }
     }
+
+    // Start Backend API to front twig
+    public function getTopTenMovies(){
+        $queryBuilder = $this->createQueryBuilder('m')
+            // TO CHECK orderBy rate / view
+            ->orderBy('m.createdAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(10);
+        
+        return $queryBuilder->getQuery()->getResult();
+    }
+    // End Backend API to front twig
 }
