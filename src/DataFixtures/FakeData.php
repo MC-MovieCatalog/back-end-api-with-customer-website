@@ -19,7 +19,7 @@ class FakeData
     private $movies = array(
         array(
             'id' => 1,
-            'duration' => '1:17:02',
+            'duration' => '1h17',
             /* 'link' => 'https://www.youtube.com/watch?v=9Yl3aAEcR7A',*/
             'link' => '9Yl3aAEcR7A',
             'description' => 'Alors qu\'une équipe de scientifiques tente de repousser les limites de l\'esprit humain en mettant au point un sérum révolutionnaire permettant d\'ouvrir un pont entre le monde des esprits et celui des hommes, l\'expérience tourne mal et ouvre un...',
@@ -33,7 +33,7 @@ class FakeData
         ),
         array(
             'id' => 2,
-            'duration' => '1:18:25',
+            'duration' => '1h18',
             /* 'link' => 'https://www.youtube.com/watch?v=qbc8HirM-j4',*/
             'link' => 'qbc8HirM-j4',
             'description' => 'Un couple en deuil décide de s\'installer à la campagne. Ils découvrent bientôt que leur nouvelle maison est hantée.',
@@ -47,7 +47,7 @@ class FakeData
         ),
         array(
             'id' => 3,
-            'duration' => '1:26:59',
+            'duration' => '1h26',
             /* 'link' => 'https://www.youtube.com/watch?v=DoyLZJvWKJQ',*/
             'link' => 'DoyLZJvWKJQ',
             'description' => 'Une dame très cynique et une jeune femme commencent une relation de 5 ans après s\'être rencontrées lors d\'une pluie de météores.',
@@ -61,7 +61,7 @@ class FakeData
         ),
         array(
             'id' => 4,
-            'duration' => '1:40:51',
+            'duration' => '1h40',
             /* 'link' => 'https://www.youtube.com/watch?v=HEkdQCcRztE',*/
             'link' => 'HEkdQCcRztE',
             'description' => 'Depuis la mort de sa femme, Monte Wildhorn, un écrivain spécialisé dans les westerns, noie son chagrin dans l\'alcool et la solitude. Son neveu s\'inquiète de son état, et le pousse à partir en vacances d\'été dans une petite ville paisible...',
@@ -75,7 +75,7 @@ class FakeData
         ),
         array(
             'id' => 5,
-            'duration' => '1:27:40',
+            'duration' => '1h27',
             /* 'link' => 'https://www.youtube.com/watch?v=MPJ9iKHIp1o',*/
             'link' => 'MPJ9iKHIp1o',
             'description' => 'La quiétude matinale dun Fast food vole en éclats lorsque des coups de feux retentissent.',
@@ -89,7 +89,7 @@ class FakeData
         ),
         array(
             'id' => 6,
-            'duration' => '1:23:01',
+            'duration' => '1h23',
             /*'link' => 'https://www.youtube.com/watch?v=yPff5FTKKvI',*/
             'link' => 'yPff5FTKKvI',
             'description' => 'Quand un paquebot est coulé par un gigantesque requin mutant à deux têtes, son équipage tente de trouver refuge sur un atoll qui semble désert.',
@@ -103,7 +103,7 @@ class FakeData
         ),
         array(
             'id' => 7,
-            'duration' => '1:45:20',
+            'duration' => '1h45',
             /* 'link' => 'https://www.youtube.com/watch?v=yBDkPoUhzGc',*/
             'link' => 'yBDkPoUhzGc',
             'description' => 'Surfant sur le succès de son premier film, Herbert Biberman, un jeune cinéaste, profite de sa gloire naissante pour faire des projets d\'avenir. Cependant l\'heure n\'est pas aux réjouissances : la guerre froide bat son plein et le Sénat crée...',
@@ -117,7 +117,7 @@ class FakeData
         ),
         array(
             'id' => 8,
-            'duration' => '1:34:33',
+            'duration' => '1h34',
             /*'link' => 'https://www.youtube.com/watch?v=FKrgDRmLBXo',*/
             'link' => 'FKrgDRmLBXo',
             'description' => 'Matthew Taylor, un expert en relations amoureuses en tournée promotionnelle pour son dernier best-seller, croise la route de Kristin Peralta, une psychologue qui l\'accuse d\'être un charlatan. Leur relation professionnelle orageuse prend...',
@@ -131,7 +131,7 @@ class FakeData
         ),
         array(
             'id' => 9,
-            'duration' => '1:29:50',
+            'duration' => '1h29',
             /*'link' => 'https://www.youtube.com/watch?v=Z2e-fsUhPZQ',*/
             'link' => 'Z2e-fsUhPZQ',
             'description' => 'Une jeune femme et ses amies deviennent le cible d\'un groupe de kidnappeurs sans pitié et doivent lutter pour survivre.',
@@ -145,7 +145,7 @@ class FakeData
         ),
         array(
             'id' => 10,
-            'duration' => '1:26:35',
+            'duration' => '1h26',
             /*'link' => 'https://www.youtube.com/watch?v=vt-_oy14OXk',*/
             'link' => 'vt-_oy14OXk',
             'description' => 'Un tremblement de terre sous-marin provoque un tsunami qui vient frapper les côtes, occasionnant d\'importants dégâts.',
