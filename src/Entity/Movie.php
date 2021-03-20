@@ -72,14 +72,14 @@ class Movie
     private $bills;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ongoing::class, mappedBy="movie", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Ongoing::class, mappedBy="movie")
      */
-    private $onGoing;
+    private $onGoings;
 
     public function __construct()
     {
         $this->bills = new ArrayCollection();
-        $this->onGoing = new ArrayCollection();
+        $this->onGoings = new ArrayCollection();
     }
 
     /**
@@ -240,24 +240,24 @@ class Movie
     /**
      * @return Collection|Ongoing[]
      */
-    public function getOngoing(): Collection
+    public function getOnGoings(): Collection
     {
-        return $this->onGoing;
+        return $this->onGoings;
     }
 
-    public function addOngoing(Ongoing $onGoing): self
+    public function addOnGoing(Ongoing $onGoing): self
     {
-        if (!$this->onGoing->contains($onGoing)) {
-            $this->onGoing[] = $onGoing;
+        if (!$this->onGoings->contains($onGoing)) {
+            $this->onGoings[] = $onGoing;
             $onGoing->setMovie($this);
         }
 
         return $this;
     }
 
-    public function removeOngoing(Ongoing $onGoing): self
+    public function removeOnGoing(Ongoing $onGoing): self
     {
-        if ($this->onGoing->removeElement($onGoing)) {
+        if ($this->onGoings->removeElement($onGoing)) {
             // set the owning side to null (unless already changed)
             if ($onGoing->getMovie() === $this) {
                 $onGoing->setMovie(null);
