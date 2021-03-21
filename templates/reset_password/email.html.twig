@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Réinitialiser votre mot de passe</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    </head>
+    <body>
+        <div class="page-wrap d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        {# <img src="https://festimove.com/css/image/movieCatalogLogo.png" alt="MovieCatalog"> #}
+                        <br>
+                        <div class="mb-4 lead">
+                            <p>
+                                Bonjour,<br>
+                                Pour réinitialiser votre mot de passe, merci de cliquer sur le lien suivant : <br><br>
+                                <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>.<br>
+                                Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }} heure(s).
+                            </p>
+                            <p>
+                                Votre service client!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
