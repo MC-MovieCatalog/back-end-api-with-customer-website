@@ -2,9 +2,10 @@
 <html lang="en-US">
    <head>
       {% include "/partials_layout/css.html.twig" %}
-      {{ encore_entry_link_tags('app') }}
+      {# {{ encore_entry_link_tags('app') }} #}
+      <link rel="stylesheet" href="{{ asset('build/app.css') }}">
 
-    <title>MovieCatalog{% block title %}{% endblock %}</title>
+    <title>MovieCatalog {% block title %}{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 
    </head>
@@ -23,6 +24,7 @@
         <!--Start custom js-->
 
         {% include "/partials_layout/js.html.twig" %}
-        {{ encore_entry_script_tags('app') }}
+        {# {{ encore_entry_script_tags('app') }} #}
+        <script src="{{ asset('build/app.js') }}"></script>
     </body>
 </html>
