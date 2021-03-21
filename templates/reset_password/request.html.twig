@@ -1,0 +1,44 @@
+{% extends 'security_base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+
+    <!-- MainContent -->
+    <section class="sign-in-page">
+        <div class="container">
+            <div class="row justify-content-center align-items-center height-self-center">
+                <div class="col-lg-5 col-md-12 align-self-center">
+                    <div class="sign-user_card ">                    
+                    <div class="sign-in-page-data">
+                        <div class="sign-in-from w-100 m-auto">
+                            <h3 class="mb-3 text-center">Mot de passe perdu</h3>
+                            <p class="text-body">Entrez l'adresse email associée à votre compte et nous vous enverrons les instructions vous permettant de réinitialiser votre mot de passe.</p>
+
+                            {% for flashError in app.flashes('reset_password_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+                            {{ form_start(requestForm) }}
+                                <div class="form-group">                                 
+                                    {{ form_row(requestForm.email, { 'attr': {'placeholder': 'Entrez votre email'}}) }}
+                                </div>
+                                <div class="sign-info">
+                                    <button class="btn btn-hover">Envoyer ma demande</button>                                                           
+                                </div>  
+                            {{ form_end(requestForm) }}
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-center links">
+                                    <a href="{{ path('app_login') }}" class="text-primary ml-2">Connectez-vous !</a>
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>                    
+                    </div>
+                </div>
+            </div>
+            <!-- Sign in END -->
+            <!-- color-customizer -->
+        </div>
+    </section>
+    <!-- MainContent End-->
+{% endblock %}
