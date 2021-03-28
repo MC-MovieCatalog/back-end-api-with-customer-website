@@ -31,7 +31,7 @@ class MovieController extends AbstractController
         // dd($topTenMovie);
         // dd($movies);
 
-        return $this->render('movie_book/movies.html.twig', [
+        return $this->render('movie_catalog/movies.html.twig', [
             'movies' => $movies,
             'topTenMovies' => $topTenMovies
         ]);
@@ -42,7 +42,7 @@ class MovieController extends AbstractController
      */
     public function movieDetails()
     {
-        return $this->render('movie_book/details.html.twig', [
+        return $this->render('movie_catalog/details.html.twig', [
             // 'controller_name' => 'HomePageController',
         ]);
     }
@@ -52,7 +52,7 @@ class MovieController extends AbstractController
      */
     public function search()
     {
-        return $this->render('movie_book/search.html.twig', [
+        return $this->render('movie_catalog/search.html.twig', [
             // 'controller_name' => 'HomePageController',
         ]);
     }

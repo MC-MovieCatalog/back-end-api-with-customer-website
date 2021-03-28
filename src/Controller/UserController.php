@@ -12,7 +12,7 @@ class UserController extends AbstractController
      */
     public function user_account()
     {
-        return $this->render('movie_book/account/user_account.html.twig', [
+        return $this->render('movie_catalog/account/user_account.html.twig', [
             // 'controller_name' => 'HomePageController',
         ]);
     }
@@ -22,7 +22,7 @@ class UserController extends AbstractController
      */
     public function user_profile()
     {
-        return $this->render('movie_book/account/user_profile.html.twig', [
+        return $this->render('movie_catalog/account/user_profile.html.twig', [
             // 'controller_name' => 'HomePageController',
         ]);
     }
