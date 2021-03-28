@@ -1,0 +1,57 @@
+{% extends 'security_base.html.twig' %}
+
+{% block title %}| Inscription{% endblock %}
+
+{% block stylesheets %} 
+
+{% endblock %}
+
+{% block body %}
+    <!-- MainContent -->
+    <section class="sign-in-page">
+        <div class="container">
+            <div class="row justify-content-center align-items-center height-self-center">
+                <div class="col-lg-5 col-md-12 align-self-center">
+                    <div class="sign-user_card ">                    
+                    <div class="sign-in-page-data">
+                        <div class="sign-in-from w-100 m-auto">
+
+                            {% for flashError in app.flashes('verify_email_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+
+                            <h3 class="mb-3 text-center">Inscription</h3>
+                            {{ form_start(registrationForm) }}
+                                <div class="form-group">                                 
+                                    {{ form_row(registrationForm.email) }}
+                                </div>
+                                <div class="form-group">                                 
+                                    {{ form_row(registrationForm.lastName) }}
+                                </div> 
+                                <div class="form-group">                                 
+                                    {{ form_row(registrationForm.firstName) }}
+                                </div> 
+                                <div class="form-group">                                 
+                                    {{ form_row(registrationForm.plainPassword) }}
+                                </div> 
+                                <div class="form-group">
+                                    {{ form_row(registrationForm.agreeTerms) }}
+                                    {% include "/partials_layout/cgu.html.twig" %}
+                                </div>                      
+                                
+                                <button type="submit" class="btn btn-hover">S'inscrire</button>
+                            {{ form_end(registrationForm) }}
+                        </div>
+                    </div>    
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-center links">
+                            Vous avez déjà un compte? <a href="{{ path('app_login') }}" class="text-primary ml-2">S'identifier</a>
+                        </div>                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- MainContent End-->
+{% endblock %}

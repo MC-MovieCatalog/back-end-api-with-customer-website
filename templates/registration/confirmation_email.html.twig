@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Confirmaiton de votre email</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    </head>
+    <body>
+        <div class="page-wrap d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        {# <img src="https://festimove.com/css/image/movieCatalogLogo.png" alt="MovieCatalog"> #}
+                        <br>
+                        <div class="mb-4 lead">
+                            <p>
+                                Bonjour et merci pour votre inscription sur notre site.<br> 
+                                Afin que vous puissiez profiter pleinement de toutes les fonctionnalités offertes grâce à votre compte utilisateur,
+                                Nous vous invitons de procéder dès maintenant à la confirmation de votre adresse email en cliquant sur le lien suivant: <br><br>
+                                <a href="{{ signedUrl|raw }}">Je confirme mon adresse email</a>.<br>
+                                Ce lien expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }} heure(s).
+                            </p>
+                            <p>
+                                Votre service client!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

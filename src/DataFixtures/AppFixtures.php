@@ -2,27 +2,40 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Address;
 use Faker\Factory;
 use App\Entity\Book;
+use App\Entity\User;
 use App\Entity\Movie;
+use App\Entity\Address;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+
     public function load(ObjectManager $manager)
     {
-        // Commons variables
+        // Common variables
 
         $faker = Factory::create('fr_FR');
 
-        $fakeData = new FakeData();
+        // Data
 
+        $fakeBookData = new FakeBookData();
+        $fakeMovieData = new FakeMovieData();
+        $fakeAdresseData = new FakeAdresseData();
+        $fakeUserData = new FakeUserData();  
 
         // Book
-        $fakeBooks = $fakeData->getBooks();
+        $fakeBooks = $fakeBookData->getBooks();
         
         foreach ($fakeBooks as $bookData) {
             $book = new Book();
@@ -40,7 +53,7 @@ class AppFixtures extends Fixture
         }
 
         // Movie 
-        $fakeMovies = $fakeData->getMovies();
+        $fakeMovies = $fakeMovieData->getMovies();
         
         foreach ($fakeMovies as $movieData) {
             $movie = new Movie();
@@ -59,7 +72,7 @@ class AppFixtures extends Fixture
         }
 
         // Address
-        $fakeAddresses = $fakeData->getAddresses();
+        $fakeAddresses = $fakeAdresseData->getAddresses();
 
         foreach ($fakeAddresses as $fakeAddress) {
             $address = new Address();
@@ -71,6 +84,24 @@ class AppFixtures extends Fixture
                     ->setType($fakeAddress['type']);
 
             $manager->persist($address);
+        }
+
+        // User
+        $fakeUsers = $fakeUserData->getUsers();
+
+        foreach ($fakeUsers as $fakeUser) {
+            $user = new User();
+
+            $user->setEmail($fakeUser['email'])
+                    ->setPassword($this->passwordEncoder->encodePassword($user, $fakeUser['password']))
+                    ->setRoles(isset($fakeUser['role']) != false ? $fakeUser['role'] : array())
+                    ->setIsVerified($fakeUser['isVerify'])
+                    ->setLastName($fakeUser['lastName'])
+                    ->setFirstName($fakeUser['firstName'])
+                    ->setIsActive($fakeUser['isActive'])
+                    ->setAgreeTerms($fakeUser['agreeTerms']);
+
+            $manager->persist($user);
         }
 
         // Flush

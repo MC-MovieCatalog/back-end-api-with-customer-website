@@ -19,19 +19,30 @@ class Ongoing
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="ongoing")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $movie;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $ongoing;
+    private $onGoing;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="onGoings")
+     */
+    private $movie;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getOngoing(): ?string
+    {
+        return $this->onGoing;
+    }
+
+    public function setOngoing(string $onGoing): self
+    {
+        $this->onGoing = $onGoing;
+
+        return $this;
     }
 
     public function getMovie(): ?Movie
@@ -42,18 +53,6 @@ class Ongoing
     public function setMovie(?Movie $movie): self
     {
         $this->movie = $movie;
-
-        return $this;
-    }
-
-    public function getOngoing(): ?string
-    {
-        return $this->ongoing;
-    }
-
-    public function setOngoing(string $ongoing): self
-    {
-        $this->ongoing = $ongoing;
 
         return $this;
     }

@@ -12,7 +12,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->render('movie_book/home_page.html.twig', [
+        return $this->render('movie_catalog/home_page.html.twig', [
             // 'controller_name' => 'HomePageController',
         ]);
     }
