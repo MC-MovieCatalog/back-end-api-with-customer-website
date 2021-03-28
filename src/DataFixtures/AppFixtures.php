@@ -29,28 +29,9 @@ class AppFixtures extends Fixture
 
         // Data
 
-        $fakeBookData = new FakeBookData();
         $fakeMovieData = new FakeMovieData();
         $fakeAdresseData = new FakeAdresseData();
-        $fakeUserData = new FakeUserData();  
-
-        // Book
-        $fakeBooks = $fakeBookData->getBooks();
-        
-        foreach ($fakeBooks as $bookData) {
-            $book = new Book();
-
-            $book->setPageNb($bookData['pageNb'])
-                 ->setContent($bookData['content'])
-                 ->setDescription($bookData['description'])
-                 ->setTitle($bookData['title'])
-                 ->setPrice($bookData['price'])
-                 ->setCover($bookData['cover'])
-                 ->setAuthor($bookData['author']);
-
-            $manager->persist($book);
-            
-        }
+        $fakeUserData = new FakeUserData();
 
         // Movie 
         $fakeMovies = $fakeMovieData->getMovies();
