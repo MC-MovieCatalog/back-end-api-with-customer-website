@@ -84,12 +84,12 @@ openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ````
 
-### Générer un token
+### Génération du token
 Pour générer un token, il vous faut ppaler la route login_chek
 ````bash
 curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/login_check -d '{"username":"adresse-email@movie-catolog.fr","password":"mot-de-pass-de-test"}'
 ````
-### Génération d'un token
+### Exemple de token
 Exemple de token généré
 ````bash
 {
