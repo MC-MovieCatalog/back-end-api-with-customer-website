@@ -69,7 +69,6 @@ security:
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, method: [GET, PUT, DELETE]  }
         - { path: ^/api/movies, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/api/adresses, roles: IS_AUTHENTICATED_FULLY}
-        - { path: ^/api/books, roles: IS_AUTHENTICATED_FULLY}
 
     role_hierarchy:
             ROLE_CUSTOMER: ROLE_USER
