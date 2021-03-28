@@ -13,7 +13,29 @@ security:
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            security: false    
+        # API
+        registration:
+            pattern:  ^/api/users
+            stateless: true
+            anonymous: true
+            methods: [POST]
+        login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            stateless: true
+            anonymous: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        # Local app    
         main:
             anonymous: true
             lazy: true
@@ -43,3 +65,13 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: /api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, method: [GET, PUT, DELETE]  }
+        - { path: ^/api/movies, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/api/adresses, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/api/books, roles: IS_AUTHENTICATED_FULLY}
+
+    role_hierarchy:
+            ROLE_CUSTOMER: ROLE_USER
+            ROLE_FULL_CUSTOMER: ROLE_CUSTOMER
+            ROLE_ADMIN: [ROLE_FULL_CUSTOMER, ROLE_ALLOWED_TO_SWITCH]
