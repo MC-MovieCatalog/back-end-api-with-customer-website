@@ -68,6 +68,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=80)
      * @Assert\Type("string", message="Format non pris en charge")
      * @Assert\Length(
+     *      min=2,
+     *      minMessage="Vous devez saisir un nom contenant au moins deux caractères", 
      *      max=80, 
      *      maxMessage="Vous ne pouvez pas dépasser 80 caractères"
      * )
@@ -80,6 +82,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=80)
      * @Assert\Type("string", message="Format non pris en charge")
      * @Assert\Length(
+     *      min=2,
+     *      minMessage="Vous devez saisir un prénom contenant au moins deux caractères", 
      *      max=80, 
      *      maxMessage="Vous ne pouvez pas saisir plus de 80 caractères"
      * )
