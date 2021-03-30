@@ -120,4 +120,29 @@ class CustomValidator extends ErrorAssert
         return $floatErrors;
     }
 
+
+    protected function customBooleanValidator($request, $field)
+    {
+        $booleanErrors = [];
+
+        // if not boolean value ?
+        if ($this->errorBooleanAssert($request, $field)) {
+            array_push($booleanErrors, $this->errorBooleanAssert($request, $field));
+        }
+
+        return $booleanErrors;
+    }
+
+    protected function customEmailValidator($request, $field, ?int $minLength, ?int $maxLength)
+    {
+        $emailErrors = $this->customStringValidator($request, $field, $minLength, $maxLength);
+
+        // if not integer value ?
+        if ($this->errorEmailAssert($request, $field)) {
+            array_push($emailErrors, $this->errorEmailAssert($request, $field));
+        }
+
+        return $emailErrors;
+    }
+
 }

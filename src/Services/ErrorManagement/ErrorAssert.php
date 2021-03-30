@@ -228,4 +228,37 @@ class ErrorAssert
             return ['field' => $field, 'message' => $message];
         }
     }
+
+    // Boolean
+
+    /**
+     * This function checks if the indicated value is of type bool
+     *
+     * @param array $data
+     * @param boolean $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorBooleanAssert(array $data, $field, string $message = 'Cette valeur doit être soit oui soit non')
+    {
+        if (is_bool($data[$field]) !== true) {
+            return ['field' => $field, 'message' => $message];
+        }
+    }
+
+    // Email
+    
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @param string $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorEmailAssert(array $data, string $field, string $message = 'Cette email n\'est pas valide') {
+        if (!filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
+            return ['field' => $field, 'message' => $message];
+        }
+    }
 }
