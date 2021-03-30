@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * API Address Controller
- * @Route("/api")
+ * @Route("/api/addresses")
  */
 class APIAddressController extends APIDefaultController
 {
@@ -37,7 +37,7 @@ class APIAddressController extends APIDefaultController
     /**
      * This function returns the addresses list or not found error.
      * 
-     * @Route("/addresses", methods={"GET"})
+     * @Route("/getAllAddresses", methods={"GET"})
      */
     public function apiAddressIndex()
     {
@@ -54,14 +54,12 @@ class APIAddressController extends APIDefaultController
      * This function retrieves the json address sent in the http request, transforms it into a address entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/addresses/add", methods={"POST"})
+     * @Route("/createAddress", methods={"POST"})
      */
     public function apiAddressCreate(Request $request)
     {
         // Get the json data in user request
         $jsonDataRequestToCreateAddress = json_decode($request->getContent(), true);
-
-        // dd($jsonDataRequestToCreateAddress);
 
         if ($jsonDataRequestToCreateAddress === null && json_last_error() !== JSON_ERROR_NONE) {
             return $this->json([
@@ -95,7 +93,7 @@ class APIAddressController extends APIDefaultController
 
     /**
      * This function returns the address whose identifier is given as a parameter
-     * @Route("/addresses/{id}", methods={"GET"})
+     * @Route("/getAddresseById/{id}", methods={"GET"})
      */
     public function apiAddressShow(Address $address = null, Request $request)
     {
@@ -116,7 +114,7 @@ class APIAddressController extends APIDefaultController
     /**
      * This function retrieves the json address sent in the http request, transforms it into a address entity and then updates it in the database.
      * 
-     * @Route("/addresses/{id}/edit", methods={"PUT","PATCH"})
+     * @Route("/updateAddress/{id}", methods={"PUT","PATCH"})
      */
     public function apiAddressEdit(Address $address = null, Request $request)
     {
@@ -170,7 +168,7 @@ class APIAddressController extends APIDefaultController
 
     /**
      * This function deletes the address whose identifier is given in parameter
-     * @Route("/addresses/{id}/delete", methods={"DELETE"})
+     * @Route("/deleteAdresse/{id}", methods={"DELETE"})
      */
     public function apiAddressDelete(Address $address = null, Request $request)
     {
