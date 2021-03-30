@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\Book;
 use App\Entity\User;
 use App\Entity\Movie;
 use App\Entity\Address;

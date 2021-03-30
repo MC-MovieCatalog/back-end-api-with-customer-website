@@ -66,7 +66,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: /api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, method: [GET, PUT, DELETE]  }
+        # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, method: [GET, PUT, DELETE]  }
         - { path: ^/api/movies, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/api/adresses, roles: IS_AUTHENTICATED_FULLY}
 
