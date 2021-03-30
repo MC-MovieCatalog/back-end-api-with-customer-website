@@ -134,8 +134,6 @@ class APIMovieController extends APIDefaultController
             // Get the json data in user request
             $jsonDataRequestToEditMovie = json_decode($request->getContent(), true);
 
-            $content = $jsonDataRequestToEditMovie;
-
             if ($jsonDataRequestToEditMovie === null && json_last_error() !== JSON_ERROR_NONE) {
                 return $this->json([
                     'status' => 400,
