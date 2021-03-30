@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * API Movie Controller
- * @Route("/api")
+ * @Route("/api/movies")
  */
 class APIMovieController extends APIDefaultController
 {
@@ -37,7 +37,7 @@ class APIMovieController extends APIDefaultController
     /**
      * This function returns the movies list or not found error.
      * 
-     * @Route("/movies", methods={"GET"})
+     * @Route("/getAllMovies", methods={"GET"})
      */
     public function apiMovieIndex()
     {
@@ -54,7 +54,7 @@ class APIMovieController extends APIDefaultController
      * This function retrieves the json movie sent in the http request, transforms it into a movie entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/movies/add", methods={"POST"})
+     * @Route("/createMovie", methods={"POST"})
      */
     public function apiMovieCreate(Request $request)
     {
@@ -98,7 +98,7 @@ class APIMovieController extends APIDefaultController
 
     /**
      * This function returns the movie whose identifier is given as a parameter
-     * @Route("/movies/{id}", methods={"GET"})
+     * @Route("/getMovieById/{id}", methods={"GET"})
      */
     public function apiMovieShow(Movie $movie = null, Request $request)
     {
@@ -119,7 +119,7 @@ class APIMovieController extends APIDefaultController
     /**
      * This function retrieves the json movie sent in the http request, transforms it into a movie entity and then updates it in the database.
      * 
-     * @Route("/movies/{id}/edit", methods={"PUT","PATCH"})
+     * @Route("/updateMovie/{id}", methods={"PUT","PATCH"})
      */
     public function apiMovieEdit(Movie $movie = null, Request $request)
     {
@@ -184,7 +184,7 @@ class APIMovieController extends APIDefaultController
 
     /**
      * This function deletes the movie whose identifier is given in parameter
-     * @Route("/movies/{id}/delete", methods={"DELETE"})
+     * @Route("/deleteMovie/{id}", methods={"DELETE"})
      */
     public function apiMovieDelete(Movie $movie = null, Request $request)
     {
