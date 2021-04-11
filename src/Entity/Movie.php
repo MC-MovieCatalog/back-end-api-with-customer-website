@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\MovieRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MovieRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRepository::class)
@@ -67,19 +68,30 @@ class Movie
     private $trailer;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Bill::class, mappedBy="movies")
-     */
-    private $bills;
-
-    /**
      * @ORM\OneToMany(targetEntity=Ongoing::class, mappedBy="movie")
      */
     private $onGoings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="movie", orphanRemoval=true)
+     */
+    private $ratings;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Invoice::class, mappedBy="movies")
+     */
+    private $invoices;
+
     public function __construct()
     {
-        $this->bills = new ArrayCollection();
         $this->onGoings = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     /**
@@ -94,6 +106,21 @@ class Movie
     {
         if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime();
+        }
+    }
+
+    /**
+     * Permet d'initialiser le slug !
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeMovieSlug() {
+        if(empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
         }
     }
 
@@ -211,33 +238,6 @@ class Movie
     }
 
     /**
-     * @return Collection|Bill[]
-     */
-    public function getBills(): Collection
-    {
-        return $this->bills;
-    }
-
-    public function addBill(Bill $bill): self
-    {
-        if (!$this->bills->contains($bill)) {
-            $this->bills[] = $bill;
-            $bill->addMovie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBill(Bill $bill): self
-    {
-        if ($this->bills->removeElement($bill)) {
-            $bill->removeMovie($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Ongoing[]
      */
     public function getOnGoings(): Collection
@@ -262,6 +262,85 @@ class Movie
             if ($onGoing->getMovie() === $this) {
                 $onGoing->setMovie(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getMovie() === $this) {
+                $rating->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getAVGRatings() {
+        $sum = array_reduce($this->ratings->toArray(), function($total, $rating) {
+            return $total + $rating->getRating();
+        }, 0);
+
+        if(count($this->ratings) > 0) return $sum / count($this->ratings);
+
+        return 0;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->addMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            $invoice->removeMovie($this);
         }
 
         return $this;

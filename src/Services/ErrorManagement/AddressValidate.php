@@ -21,11 +21,12 @@ class AddressValidate extends CustomValidator
 
         $errors = [];
 
-        $streetNb = $this->errorDefinedAssert($request, 'streetNb') ? $this->customStringValidator($request, 'streetNb', 1, 255): null;
+        $streetNb = $this->errorDefinedAssert($request, 'streetNb') ? $this->customNumricValidator($request, 'streetNb', 1, 255): null;
         $address = $this->errorDefinedAssert($request, 'address') ? $this->customStringValidator($request, 'address', 7, 255): null;
         $postal = $this->errorDefinedAssert($request, 'postal') ? $this->customStringValidator($request, 'postal', 5, 5): null;
         $city = $this->errorDefinedAssert($request, 'city') ? $this->customStringValidator($request, 'city', 3, 255): null;
         $type = $this->errorDefinedAssert($request, 'type') ? $this->customStringValidator($request, 'type', 8, 255): null;
+        $userId = $this->errorDefinedAssert($request, 'userId') ? $this->customIntegerValidator($request, 'userId', 1, 10, 1, 2147483647): null;
 
         // streetNb
 
@@ -82,7 +83,15 @@ class AddressValidate extends CustomValidator
             }
         }
 
-        //dd($errors);
+        // if empty field ?
+        if ($this->errorEmptyAssert($request, 'userId')) {
+            array_push($errors, $this->errorEmptyAssert($request, 'userId', 'L\'adresse doit être associée à un utilisateur'));
+        } else if ($userId) {
+            foreach ($userId as $userIdError) {
+                array_push($errors, $userIdError);
+            }
+        }
+
         return $errors;
     }
 
@@ -123,11 +132,12 @@ class AddressValidate extends CustomValidator
 
         $errors = [];
 
-        $streetNb = $this->errorDefinedAssert($request, 'streetNb') ? $this->customStringValidator($request, 'streetNb', 2, 255): null;
+        $streetNb = $this->errorDefinedAssert($request, 'streetNb') ? $this->customNumricValidator($request, 'streetNb', 2, 255): null;
         $address = $this->errorDefinedAssert($request, 'address') ? $this->customStringValidator($request, 'address', 11, 255): null;
         $postal = $this->errorDefinedAssert($request, 'postal') ? $this->customStringValidator($request, 'postal', 5, 80): null;
         $city = $this->errorDefinedAssert($request, 'city') ? $this->customStringValidator($request, 'city', 5, 255): null;
         $type = $this->errorDefinedAssert($request, 'type') ? $this->customStringValidator($request, 'type', 5, 255): null;
+        $userId = $this->errorDefinedAssert($request, 'userId') ? $this->customIntegerValidator($request, 'userId', 1, 10, 1, 2147483647): null;
 
         // streetNb
 
@@ -174,6 +184,13 @@ class AddressValidate extends CustomValidator
             }
         }
 
+        // if empty field ?
+        if ($this->errorDefinedAssert($request, 'userId')) {
+            foreach ($userId as $userIdError) {
+                array_push($errors, $userIdError);
+            }
+        }
+
         // if field = 0
         if (
             !$this->errorDefinedAssert($request, 'streetNb')
@@ -181,6 +198,7 @@ class AddressValidate extends CustomValidator
             && !$this->errorDefinedAssert($request, 'postal')
             && !$this->errorDefinedAssert($request, 'city')
             && !$this->errorDefinedAssert($request, 'type')
+            && !$this->errorDefinedAssert($request, 'userId')
 
         ) {
             array_push($errors, ['Error' => 'Aucune modification détectée, merci de vérifier...']);

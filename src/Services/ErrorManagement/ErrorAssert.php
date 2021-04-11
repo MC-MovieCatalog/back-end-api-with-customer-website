@@ -57,6 +57,66 @@ class ErrorAssert
         }
     }
 
+
+    /**
+     * This function checks if the indicated value is of type numeric
+     *
+     * @param array $data
+     * @param string $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorNumericAssert(array $data, string $field, string $message = 'Cette valeur n\'est pas conforme')
+    {
+        if (is_numeric($data[$field]) !== true) {
+            return ['field' => $field, 'message' => $message];
+        }
+    }
+
+    /**
+     * This function checks the minimum size of the entered numeric value
+     *
+     * @param array $data
+     * @param string $field
+     * @param integer $minLenght
+     * @param string $message
+     * @return array
+     */
+    protected function errorNumericMinLenghtAssert(
+        array $data,
+        string $field,
+        int $minLenght,
+        string $message = 'Le nombre saisit ne peut peut contenir moins de '
+    ) {
+        $error = ($message !== 'Le nombre saisit ne peut peut contenir moins de ') ? $message : $message . strval($minLenght) . ' chiffres(s)';
+
+        if (is_numeric($data[$field]) === true && strlen((string)$data[$field]) < $minLenght) {
+            return ['field' => $field, 'error' => $error];
+        }
+    }
+
+    /**
+     * This function checks the maximum size of the entered numeric value
+     *
+     * @param array $data
+     * @param string $field
+     * @param integer $maxLenght
+     * @param string $message
+     * @return array
+     */
+    protected function errorNumericMaxLenghtAssert(
+        array $data,
+        string $field,
+        int $maxLenght,
+        string $message = 'Le nombre saisit ne peut peut contenir plus de '
+    ) {
+        $error = ($message !== 'Le nombre saisit ne peut peut contenir plus de ') ? $message : $message . strval($maxLenght) . ' chiffre(s)';
+
+        if (is_numeric($data[$field]) === true && strlen((string)$data[$field]) > $maxLenght) {
+            return ['field' => $field, 'error' => $error];
+        }
+    }
+    
     /**
      * This function checks the minimum size of the entered int value
      *
@@ -225,6 +285,39 @@ class ErrorAssert
     
     protected function errorUrlAssert(array $data, string $field, string $message = 'Cette url n\'est pas valide') {
         if (!filter_var($data[$field], FILTER_VALIDATE_URL)) {
+            return ['field' => $field, 'message' => $message];
+        }
+    }
+
+    // Boolean
+
+    /**
+     * This function checks if the indicated value is of type bool
+     *
+     * @param array $data
+     * @param boolean $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorBooleanAssert(array $data, $field, string $message = 'Cette valeur doit être soit vrai soit faux')
+    {
+        if (is_bool($data[$field]) !== true) {
+            return ['field' => $field, 'message' => $message];
+        }
+    }
+
+    // Email
+    
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @param string $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorEmailAssert(array $data, string $field, string $message = 'Cette email n\'est pas valide') {
+        if (!filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
             return ['field' => $field, 'message' => $message];
         }
     }

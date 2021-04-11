@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Movie;
 use App\Services\SurveyData;
-use App\Services\ConvertDate;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\RepositoryFormatter\MovieFormatter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -16,19 +16,19 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class MovieRepository extends ServiceEntityRepository
 {
-    private $convertDate;
-    
     private $surveyData;
+
+    private $movieFormater;
 
     public function __construct(
         ManagerRegistry $registry,
-        ConvertDate $convertDate,
-        SurveyData $surveyData
+        SurveyData $surveyData,
+        MovieFormatter $movieFormater
     )
     {
         parent::__construct($registry, Movie::class);
-        $this->convertDate = $convertDate;
-        $this->surveyData = $surveyData;
+        $this->surveyData = $surveyData;;
+        $this->movieFormater = $movieFormater;
     }
 
     // /**
@@ -67,19 +67,7 @@ class MovieRepository extends ServiceEntityRepository
      */
     public function transform(Movie $movie)
     {
-        return [
-            'id'    => (int) $movie->getId(),
-            'duration' => (string) $movie->getDuration(),
-            'link' => (string) $movie->getLink(),
-            'description' => (string) $movie->getDescription(),
-            'title' => (string) $movie->getTitle(),
-            'price' => (float) $movie->getPrice(),
-            'cover' => (string) $movie->getCover(),
-            'createdAt' => (string) $this->convertDate->toDateTimeFr($movie->getCreatedAt()->format('Y-m-d H:i:s'), true),
-            // 'dateTest' => $this->convertDate->toStrDateTimeFr($book->getCreatedAt()->format('Y-m-d H:i:s'), false),
-            'director' => (string) $movie->getDirector(),
-            'trailor' => (string) $movie->getTrailer()
-        ];
+        return $this->movieFormater->managMovie($movie);
     }
 
     /**

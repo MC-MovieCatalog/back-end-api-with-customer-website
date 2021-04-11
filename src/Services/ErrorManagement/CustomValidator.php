@@ -16,7 +16,7 @@ class CustomValidator extends ErrorAssert
 
         $fieldErrors = [];
 
-        // if not integer value ?
+        // is not string value ?
         if ($this->errorStringAssert($request, $field)) {
             array_push($fieldErrors, $this->errorStringAssert($request, $field));
         }
@@ -30,6 +30,31 @@ class CustomValidator extends ErrorAssert
         if ($maxLength !== null) {
             if ($this->errorStringMaxLenghtAssert($request, $field, $maxLength)) {
                 array_push($fieldErrors, $this->errorStringMaxLenghtAssert($request, $field, $maxLength));
+            }
+        }
+
+        return $fieldErrors;
+    }
+
+    protected function numericFieldValidator($request, $field, ?int $minLength, ?int $maxLength)
+    {
+
+        $fieldErrors = [];
+
+        // is not string value ?
+        if ($this->errorNumericAssert($request, $field)) {
+            array_push($fieldErrors, $this->errorNumericAssert($request, $field));
+        }
+        // if < min lenght ?
+        if ($minLength !== null) {
+            if ($this->errorNumericMinLenghtAssert($request, $field, $minLength)) {
+                array_push($fieldErrors, $this->errorNumericMinLenghtAssert($request, $field, $minLength));
+            }
+        }
+        // if > max lenght ?
+        if ($maxLength !== null) {
+            if ($this->errorNumericMaxLenghtAssert($request, $field, $maxLength)) {
+                array_push($fieldErrors, $this->errorNumericMaxLenghtAssert($request, $field, $maxLength));
             }
         }
 
@@ -109,6 +134,18 @@ class CustomValidator extends ErrorAssert
         return $integerErrors;
     }
 
+    protected function customNumricValidator($request, $field, ?int $minLength, ?int $maxLength)
+    {
+        $stringErrors = $this->numericFieldValidator($request, $field, $minLength, $maxLength);
+
+        // if not numeric value ?
+        if ($this->errorNumericAssert($request, $field)) {
+            array_push($stringErrors, $this->errorNumericAssert($request, $field));
+        }
+
+        return $stringErrors;
+    }
+
     protected function customFloatValidator($request, $field)
     {
         $floatErrors = [];
@@ -118,6 +155,31 @@ class CustomValidator extends ErrorAssert
         }
 
         return $floatErrors;
+    }
+
+
+    protected function customBooleanValidator($request, $field)
+    {
+        $booleanErrors = [];
+
+        // if not boolean value ?
+        if ($this->errorBooleanAssert($request, $field)) {
+            array_push($booleanErrors, $this->errorBooleanAssert($request, $field));
+        }
+
+        return $booleanErrors;
+    }
+
+    protected function customEmailValidator($request, $field, ?int $minLength, ?int $maxLength)
+    {
+        $emailErrors = $this->customStringValidator($request, $field, $minLength, $maxLength);
+
+        // if not integer value ?
+        if ($this->errorEmailAssert($request, $field)) {
+            array_push($emailErrors, $this->errorEmailAssert($request, $field));
+        }
+
+        return $emailErrors;
     }
 
 }

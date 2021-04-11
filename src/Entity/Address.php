@@ -46,13 +46,19 @@ class Address
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Bill::class, mappedBy="address")
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="address")
      */
-    private $bills;
+    private $invoices;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
-        $this->bills = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,31 +127,43 @@ class Address
     }
 
     /**
-     * @return Collection|Bill[]
+     * @return Collection|Invoice[]
      */
-    public function getBills(): Collection
+    public function getInvoices(): Collection
     {
-        return $this->bills;
+        return $this->invoices;
     }
 
-    public function addBill(Bill $bill): self
+    public function addInvoice(Invoice $invoice): self
     {
-        if (!$this->bills->contains($bill)) {
-            $this->bills[] = $bill;
-            $bill->setAddress($this);
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setAddress($this);
         }
 
         return $this;
     }
 
-    public function removeBill(Bill $bill): self
+    public function removeInvoice(Invoice $invoice): self
     {
-        if ($this->bills->removeElement($bill)) {
+        if ($this->invoices->removeElement($invoice)) {
             // set the owning side to null (unless already changed)
-            if ($bill->getAddress() === $this) {
-                $bill->setAddress(null);
+            if ($invoice->getAddress() === $this) {
+                $invoice->setAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
