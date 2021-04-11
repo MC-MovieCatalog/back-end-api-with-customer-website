@@ -1,12 +1,13 @@
 {
     "type": "project",
     "license": "proprietary",
-    "name": "moviebook/moviebook",
+    "name": "moviecatalog/moviecatalog",
     "description": "description",    
     "require": {
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "cocur/slugify": "^4.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",

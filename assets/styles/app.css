@@ -35,3 +35,24 @@
     min-height: 100vh;
 }
 /* End errors style  */
+
+
+/* Custom scrollbar */
+body::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #DBDBDB ;
+    border-radius: 20px;
+    border: 3px solid #5A3531;
+  }
+
+  /* padding  */
+  .paddingLeft {
+    padding-left: 0px !important
+  }
