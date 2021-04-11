@@ -4,9 +4,9 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Services\SurveyData;
-use App\Services\ConvertDate;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\RepositoryFormatter\UserFormatter;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -19,19 +19,19 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    private $convertDate;
-    
     private $surveyData;
+
+    private $userFormater;
 
     public function __construct(
         ManagerRegistry $registry,
-        ConvertDate $convertDate,
-        SurveyData $surveyData
+        SurveyData $surveyData,
+        UserFormatter $userFormater
     )
     {
         parent::__construct($registry, User::class);
-        $this->convertDate = $convertDate;
         $this->surveyData = $surveyData;
+        $this->userFormater = $userFormater;
     }
 
     /**
@@ -83,15 +83,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function transform(User $user)
     {
-        return [
-            'id'    => (int) $user->getId(),
-            'email' => (string) $user->getEmail(),
-            'lastName' => (string) $user->getLastName(),
-            'firstName' => (string) $user->getFirstName(),
-            'agreeTerms' => (boolean) $user->getAgreeTerms(),
-            'agreeTermsValidateAt' => (string) $this->convertDate->toDateTimeFr($user->getAgreeTermsValidatedAt()->format('Y-m-d H:i:s'), true),
-            'inscriptionDat' => (string) $this->convertDate->toDateTimeFr($user->getInscriptionDate()->format('Y-m-d H:i:s'), true),
-        ];
+        return $this->userFormater->managUser($user);
     }
 
     /**
