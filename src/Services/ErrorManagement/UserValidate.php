@@ -127,6 +127,8 @@ class UserValidate extends CustomValidator
         $lastName = $this->errorDefinedAssert($request, 'lastName') ? $this->customStringValidator($request, 'lastName', 2, 80): null;
         $firstName = $this->errorDefinedAssert($request, 'firstName') ? $this->customStringValidator($request, 'firstName', 2, 80): null;
         $agreeTerms = $this->errorDefinedAssert($request, 'agreeTerms') ? $this->customBooleanValidator($request, 'agreeTerms'): null;
+        $isActive = $this->errorDefinedAssert($request, 'isActive') ? $this->customBooleanValidator($request, 'isActive'): null;
+        $isVerified = $this->errorDefinedAssert($request, 'isVerified') ? $this->customBooleanValidator($request, 'isVerified'): null;
 
         // email
 
@@ -166,10 +168,28 @@ class UserValidate extends CustomValidator
 
         // agreeTerms
 
-        // if empty field ?
+        // if defined field ?
         if ($this->errorDefinedAssert($request, 'agreeTerms')) {
             foreach ($agreeTerms as $agreeTermsError) {
                 array_push($errors, $agreeTermsError);
+            }
+        }
+
+        // isActive
+
+        // if not empty field ?
+        if ($this->errorDefinedAssert($request, 'isActive')) {
+            foreach ($isActive as $isActiveError) {
+                array_push($errors, $isActiveError);
+            }
+        }
+
+        // isVerified
+
+        // if not empty field ?
+        if ($this->errorDefinedAssert($request, 'isVerified')) {
+            foreach ($isVerified as $isVerifiedError) {
+                array_push($errors, $isVerifiedError);
             }
         }
 
@@ -180,6 +200,8 @@ class UserValidate extends CustomValidator
             && !$this->errorDefinedAssert($request, 'lastName')
             && !$this->errorDefinedAssert($request, 'firstName')
             && !$this->errorDefinedAssert($request, 'agreeTerms')
+            && !$this->errorDefinedAssert($request, 'isActive')
+            && !$this->errorDefinedAssert($request, 'isVerified')
         ) {
             array_push($errors, ['Error' => 'Aucune modification détectée, merci de vérifier...']);
         }
