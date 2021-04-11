@@ -6,6 +6,7 @@ use App\Entity\Address;
 use App\Services\SurveyData;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\RepositoryFormatter\AddressFormatter;
 
 /**
  * @method Address|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,14 +17,17 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 class AddressRepository extends ServiceEntityRepository
 {    
     private $surveyData;
+    private $addressFormater;
 
     public function __construct(
         ManagerRegistry $registry,
-        SurveyData $surveyData
+        SurveyData $surveyData,
+        AddressFormatter $addressFormater
     )
     {
         parent::__construct($registry, Address::class);
         $this->surveyData = $surveyData;
+        $this->addressFormater = $addressFormater;
     }
 
     // /**
@@ -62,14 +66,7 @@ class AddressRepository extends ServiceEntityRepository
      */
     public function transform(Address $address)
     {
-        return [
-            'id'    => (int) $address->getId(),
-            'streetNb' => (string) $address->getStreetNb(),
-            'address' => (string) $address->getAddress(),
-            'postal' => (string) $address->getPostal(),
-            'city' => (string) $address->getCity(),
-            'type' => (string) $address->getType()
-        ];
+        return $this->addressFormater->managAddress($address);
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTime;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -68,6 +70,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=80)
      * @Assert\Type("string", message="Format non pris en charge")
      * @Assert\Length(
+     *      min=2,
+     *      minMessage="Vous devez saisir un nom contenant au moins deux caractères", 
      *      max=80, 
      *      maxMessage="Vous ne pouvez pas dépasser 80 caractères"
      * )
@@ -80,6 +84,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=80)
      * @Assert\Type("string", message="Format non pris en charge")
      * @Assert\Length(
+     *      min=2,
+     *      minMessage="Vous devez saisir un prénom contenant au moins deux caractères", 
      *      max=80, 
      *      maxMessage="Vous ne pouvez pas saisir plus de 80 caractères"
      * )
@@ -119,10 +125,28 @@ class User implements UserInterface
      */
     private $agreeTermsValidateAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $ratings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="customer")
+     */
+    private $invoices;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
+     */
+    private $addresses;
+
     public function __construct() {
         if (!empty($this->id)) {
-            $this->inscriptionDate = new DateTime();
+            $this->inscriptionDate = new DateTime('now');
         }
+        $this->ratings = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     /**
@@ -134,10 +158,10 @@ class User implements UserInterface
      */
     public function createUser() {
         if (empty($this->inscriptionDate)) {
-            $this->inscriptionDate = new DateTime();
+            $this->inscriptionDate = new DateTime('now');
         }
         if(!empty($this->agreeTerms)) {
-            $this->agreeTermsValidateAt = new \DateTime();
+            $this->agreeTermsValidateAt = new \DateTime('now');
         }
     }
 
@@ -148,9 +172,20 @@ class User implements UserInterface
      * 
      * @return void
      */
-    public function activeUser() {
-        if(empty($this->isActive) && !empty($this->isVerified)) {
-            $this->isActive = 1;
+    public function activeOrDesactivateUser() {
+        
+        if ($this->isActive !== NULL) {
+            if($this->isActive === false) {
+                $this->expirationDate = new DateTime('now');
+            } else {
+                if($this->isActive === true) {
+                    $this->expirationDate = NULL;
+                }
+            }
+        } else {
+            if(empty($this->isActive) && !empty($this->isVerified)) {
+                $this->isActive = 1;
+            }
         }
     }
 
@@ -336,6 +371,100 @@ class User implements UserInterface
     public function setAgreeTermsValidatedAt(?\DateTimeInterface $agreeTermsValidateAt): self
     {
         $this->agreeTermsValidateAt = $agreeTermsValidateAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getAuthor() === $this) {
+                $rating->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFullName(){
+        return "{$this->firstName} {$this->lastName}";
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            // set the owning side to null (unless already changed)
+            if ($invoice->getCustomer() === $this) {
+                $invoice->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
 
         return $this;
     }

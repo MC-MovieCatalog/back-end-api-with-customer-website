@@ -7,7 +7,7 @@ use DateTime;
 class FakeUserData
 {
  
-    // Book data 
+    // User data 
     
     private $users = array(
         array(
@@ -63,7 +63,7 @@ class FakeUserData
         array(
             'id' => 6,
             'email' => 'admin.admin@movie-catalog.fr',
-            'password' => 'adminPassord',
+            'password' => 'adminPassword',
             'role' => array('ROLE_ADMIN'),
             'isVerify' => true,
             'lastName' => 'Admin',
@@ -72,9 +72,9 @@ class FakeUserData
             'agreeTerms' => true
         ),
         array(
-            'id' => 6,
+            'id' => 7,
             'email' => 'administrateur@movie-catalog.fr',
-            'password' => 'adminPassord',
+            'password' => 'adminPassword',
             'role' => array('ROLE_ADMIN'),
             'isVerify' => true,
             'lastName' => 'Administrateur',
