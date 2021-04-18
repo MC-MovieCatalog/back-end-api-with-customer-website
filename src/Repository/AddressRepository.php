@@ -5,8 +5,8 @@ namespace App\Repository;
 use App\Entity\Address;
 use App\Services\SurveyData;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Services\EntityFormatter\AddressFormatter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use App\Repository\RepositoryFormatter\AddressFormatter;
 
 /**
  * @method Address|null find($id, $lockMode = null, $lockVersion = null)
@@ -60,38 +60,7 @@ class AddressRepository extends ServiceEntityRepository
     */
 
     /**
-     * Default address model for any transformation.
-     *
-     * @param Address $address
-     */
-    public function transform(Address $address)
-    {
-        return $this->addressFormater->managAddress($address);
-    }
-
-    /**
-     * This function is only used to transform the indicated addresses into the correct format. 
-     * [{element: element}, {element: element}]
-     *
-     * @return array | addresses
-     */
-    protected function transformAll($addresses)
-    {
-        if ($this->surveyData->isNotNullData($addresses) === true) {
-            $addressesArray = [];
-
-            foreach ($addresses as $address) {
-                $addressesArray[] = $this->transform($address);
-            }
-
-            return $addressesArray;
-        } else {
-            return "Aucun adresse dans notre base pour le moment";
-        }
-    }
-
-    /**
-     * This function returns the list of transformed addresses
+     * This function returns the list of transformed addresses | only to API
      *
      * @return array | addresses
      */
@@ -103,12 +72,12 @@ class AddressRepository extends ServiceEntityRepository
         // $address = "";
         // $address = [];
 
-        return $this->transformAll($address);
+        return $this->addressFormater->transformAll($address);
     }
 
     /**
      * This function will search the database for the address whose id is indicated as a parameter, 
-     * then it will call the transform () function to obtain the correct output format before sending it to the user.
+     * then it will call the transform () function to obtain the correct output format before sending it to the user |  only to API
      *
      * @return address | address
      */
@@ -116,7 +85,7 @@ class AddressRepository extends ServiceEntityRepository
     {
         if ($this->surveyData->isNumExist($id) === true) {
             $address = $this->find($id);
-            return $this->transform($address);
+            return $this->addressFormater->transform($address);
         }
     }
 }

@@ -5,8 +5,8 @@ namespace App\Repository;
 use App\Entity\User;
 use App\Services\SurveyData;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Services\EntityFormatter\UserFormatter;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Repository\RepositoryFormatter\UserFormatter;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -76,39 +76,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
-    /**
-     * Default user model for any transformation.
-     *
-     * @param User $user
-     */
-    public function transform(User $user)
-    {
-        return $this->userFormater->managUser($user);
-    }
 
     /**
-     * This function is only used to transform the indicated users into the correct format. 
-     * [{element: element}, {element: element}]
-     *
-     * @return array | users
-     */
-    protected function transformAll($users)
-    {
-        if ($this->surveyData->isNotNullData($users) === true) {
-            $usersArray = [];
-
-            foreach ($users as $user) {
-                $usersArray[] = $this->transform($user);
-            }
-
-            return $usersArray;
-        } else {
-            return "Auncun utilisateur inscrit pour le moment";
-        }
-    }
-
-    /**
-     * This function returns the list of transformed users
+     * This function returns the list of transformed users | only to API
      *
      * @return array | users
      */
@@ -120,12 +90,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // $users = "";
         // $users = [];
         
-        return $this->transformAll($users);
+        return $this->userFormater->transformAll($users);
     }
 
     /**
      * This function will search the database for the user whose id is indicated as a parameter, 
-     * then it will call the transform () function to obtain the correct output format before sending it to the user.
+     * then it will call the transform () function to obtain the correct output format before sending it to the user | only to API.
      *
      * @return user | user
      */
@@ -133,7 +103,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         if ($this->surveyData->isNumExist($id) === true) {
             $user = $this->find($id);
-            return $this->transform($user);
+            return $this->userFormater->transform($user);
         }
     }
 }

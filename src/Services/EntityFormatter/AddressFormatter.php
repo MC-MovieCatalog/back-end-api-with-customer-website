@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Repository\RepositoryFormatter;
+namespace App\Services\EntityFormatter;
 
 use App\Entity\Address;
-use App\Repository\RepositoryFormatter\UserFormatter;
+use App\Services\SurveyData;
+use App\Services\EntityFormatter\UserFormatter;
 
 class AddressFormatter
 {
     private $userFormatter;
+    private $surveyData;
 
     public function __construct(
-        UserFormatter $userFormatter
+        UserFormatter $userFormatter,
+        SurveyData $surveyData
     )
     {
         $this->userFormatter = $userFormatter;
+        $this->surveyData = $surveyData;
     }
 
     /**
@@ -46,4 +50,36 @@ class AddressFormatter
             ];
         }
     }
+
+    /**
+     * Default address model for any transformation.
+     *
+     * @param Address $address
+     */
+    public function transform(Address $address)
+    {
+        return $this->managAddress($address);
+    }
+
+    /**
+     * This function is only used to transform the indicated addresses into the correct format. 
+     * [{element: element}, {element: element}]
+     *
+     * @return array | addresses
+     */
+    public function transformAll($addresses)
+    {
+        if ($this->surveyData->isNotNullData($addresses) === true) {
+            $addressesArray = [];
+
+            foreach ($addresses as $address) {
+                $addressesArray[] = $this->transform($address);
+            }
+
+            return $addressesArray;
+        } else {
+            return "Aucune adresse dans notre base pour le moment";
+        }
+    }
+
 }
