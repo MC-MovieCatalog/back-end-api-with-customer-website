@@ -3,6 +3,7 @@
 namespace App\Controller\API;
 
 use App\Entity\User;
+use App\Controller\API\APIAction\UserAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * API User Controller
  * @Route("/api/users")
  */
-class UserAction extends APIDefaultController
+class APIUserController extends APIDefaultController
 {
     private $userAction;
 

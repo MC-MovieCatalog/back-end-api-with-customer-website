@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\API;
+namespace App\Controller\API\APIAction;
 
 use App\Entity\User;
 use App\Security\EmailVerifier;
@@ -11,6 +11,7 @@ use App\Services\ErrorManagement\UserValidate;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
+use App\Controller\API\APIDefaultController;
 
 
 class UserAction extends APIDefaultController
