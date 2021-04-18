@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Repository\RepositoryFormatter;
+namespace App\Services\EntityFormatter;
 
 use App\Entity\Movie;
+use App\Services\SurveyData;
 use App\Services\ConvertDate;
 
 class MovieFormatter
 {    
     private $convertDate;
+    private $surveyData;
 
     public function __construct(
-        ConvertDate $convertDate
+        ConvertDate $convertDate,
+        SurveyData $surveyData
     )
     {
         $this->convertDate = $convertDate;
+        $this->surveyData = $surveyData;
     }
 
     /**
@@ -37,6 +41,37 @@ class MovieFormatter
             'director' => (string) $movie->getDirector(),
             'trailor' => (string) $movie->getTrailer()
         ];
+    }
+
+    /**
+     * Default movie model for any transformation.
+     *
+     * @param Movie $movie
+     */
+    public function transform(Movie $movie)
+    {
+        return $this->managMovie($movie);
+    }
+
+    /**
+     * This function is only used to transform the indicated movies into the correct format. 
+     * [{element: element}, {element: element}]
+     *
+     * @return array | movies
+     */
+    public function transformAll($movies)
+    {
+        if ($this->surveyData->isNotNullData($movies) === true) {
+            $moviesArray = [];
+
+            foreach ($movies as $movie) {
+                $moviesArray[] = $this->transform($movie);
+            }
+
+            return $moviesArray;
+        } else {
+            return "Aucun film dans notre base pour le moment";
+        }
     }
 
 }
