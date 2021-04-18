@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Services\SurveyData;
+use App\Services\UtilitiesService\SurveyData;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Services\EntityFormatter\UserFormatter;
 use Symfony\Component\Security\Core\User\UserInterface;

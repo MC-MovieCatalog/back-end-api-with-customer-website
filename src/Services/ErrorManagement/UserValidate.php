@@ -2,7 +2,7 @@
 
 namespace App\Services\ErrorManagement;
 
-use App\Services\ErrorManagement\CustomValidator;
+use App\Services\ErrorModel\CustomValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
