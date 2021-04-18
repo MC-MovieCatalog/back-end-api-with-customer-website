@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ErrorManagement;
+namespace App\Services\ErrorModel;
 
 /**
  * This class handles errors for the API responses
