@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Movie;
-use App\Services\SurveyData;
+use App\Services\UtilitiesService\SurveyData;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Services\EntityFormatter\MovieFormatter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

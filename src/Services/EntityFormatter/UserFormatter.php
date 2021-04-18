@@ -3,8 +3,8 @@
 namespace App\Services\EntityFormatter;
 
 use App\Entity\User;
-use App\Services\SurveyData;
-use App\Services\ConvertDate;
+use App\Services\UtilitiesService\SurveyData;
+use App\Services\UtilitiesService\ConvertDate;
 
 class UserFormatter
 {    

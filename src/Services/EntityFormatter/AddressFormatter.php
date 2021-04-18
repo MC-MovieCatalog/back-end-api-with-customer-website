@@ -3,7 +3,7 @@
 namespace App\Services\EntityFormatter;
 
 use App\Entity\Address;
-use App\Services\SurveyData;
+use App\Services\UtilitiesService\SurveyData;
 use App\Services\EntityFormatter\UserFormatter;
 
 class AddressFormatter

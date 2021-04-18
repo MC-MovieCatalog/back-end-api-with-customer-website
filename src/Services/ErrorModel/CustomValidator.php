@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Services\ErrorManagement;
+namespace App\Services\ErrorModel;
 
-use App\Services\ErrorManagement\ErrorAssert;
-use App\Controller\API\APIDefaultController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
+use App\Services\ErrorModel\ErrorAssert;
 /**
  * This class handles errors for the entities controllers
  */
