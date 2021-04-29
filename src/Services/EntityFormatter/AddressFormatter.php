@@ -25,11 +25,11 @@ class AddressFormatter
      *
      * @return array
      */
-    public function managAddress(Address $address, $displayFromUser = false)
+    public function managAddress(Address $address, $displayUser = true)
     {
         $user = $address->getUser();
 
-        if ($displayFromUser === false) {
+        if ($displayUser === true) {
             return [
                 'id' => (int) $address->getId(),
                 'streetNb' => (string) $address->getStreetNb(),
