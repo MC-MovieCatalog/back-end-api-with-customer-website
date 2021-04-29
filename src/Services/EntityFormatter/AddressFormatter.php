@@ -37,7 +37,7 @@ class AddressFormatter
                 'postal' => (string) $address->getPostal(),
                 'city' => (string) $address->getCity(),
                 'type' => (string) $address->getType(),
-                'user' => $this->userFormatter->managUser($user, true)
+                'user' => $this->userFormatter->managUser($user, false)
             ];
         } else {
             return [

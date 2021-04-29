@@ -26,9 +26,9 @@ class UserFormatter
      * @param User $user
      * @return array
      */
-    public function managUser(User $user, $displayFromAddress = false) 
+    public function managUser(User $user, $displayAddress = true) 
     {
-        if (!empty($user->getAddresses()) && $displayFromAddress === false) {
+        if (!empty($user->getAddresses()) && $displayAddress === true) {
             
             $userAddresses = [];
             
