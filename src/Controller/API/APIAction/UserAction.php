@@ -114,7 +114,7 @@ class UserAction extends APIDefaultController
 
     public function show(User $user = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
@@ -130,7 +130,7 @@ class UserAction extends APIDefaultController
 
     public function update(User $user = null, Request $request)
     {        
-        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
