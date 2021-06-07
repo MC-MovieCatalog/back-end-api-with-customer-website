@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
 
             $user->setEmail($fakeUser['email'])
                     ->setPassword($this->passwordEncoder->encodePassword($user, $fakeUser['password']))
-                    ->setRoles(isset($fakeUser['role']) != false ? $fakeUser['role'] : array())
+                    ->setRoles(isset($fakeUser['roles']) != false ? $fakeUser['roles'] : array())
                     ->setIsVerified($fakeUser['isVerify'])
                     ->setLastName($fakeUser['lastName'])
                     ->setFirstName($fakeUser['firstName'])
