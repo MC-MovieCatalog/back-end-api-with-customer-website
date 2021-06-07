@@ -46,9 +46,12 @@ class UserFormatter
 
             return [
                 'id' => (int) $user->getId(),
+                'roles' => (array) $user->getRoles(),
+                'isVerify' => (boolean) $user->isVerified(),
                 'email' => (string) $user->getEmail(),
                 'lastName' => (string) $user->getLastName(),
                 'firstName' => (string) $user->getFirstName(),
+                'isActive' => (boolean) $user->getIsActive(),
                 'agreeTerms' => (boolean) $user->getAgreeTerms(),
                 'agreeTermsValidateAt' => (string) $this->convertDate->toDateTimeFr($user->getAgreeTermsValidatedAt()->format('Y-m-d H:i:s'), true),
                 'inscriptionDate' => (string) $this->convertDate->toDateTimeFr($user->getInscriptionDate()->format('Y-m-d H:i:s'), true),
@@ -57,9 +60,12 @@ class UserFormatter
         } else {
             return [
                 'id' => (int) $user->getId(),
+                'roles' => (array) $user->getRoles(),
+                'isVerify' => (boolean) $user->isVerified(),
                 'email' => (string) $user->getEmail(),
                 'lastName' => (string) $user->getLastName(),
                 'firstName' => (string) $user->getFirstName(),
+                'isActive' => (boolean) $user->getIsActive(),
                 'agreeTerms' => (boolean) $user->getAgreeTerms(),
                 'agreeTermsValidateAt' => (string) $this->convertDate->toDateTimeFr($user->getAgreeTermsValidatedAt()->format('Y-m-d H:i:s'), true),
                 'inscriptionDate' => (string) $this->convertDate->toDateTimeFr($user->getInscriptionDate()->format('Y-m-d H:i:s'), true)
@@ -85,16 +91,20 @@ class UserFormatter
      */
     public function transformAll($users)
     {
-        if ($this->surveyData->isNotNullData($users) === true) {
-            $usersArray = [];
-
-            foreach ($users as $user) {
-                $usersArray[] = $this->transform($user);
-            }
-
-            return $usersArray;
+        if ($users === "undefined") {
+            return "undefined";
         } else {
-            return "Auncun utilisateur inscrit pour le moment";
+            if ($this->surveyData->isNotNullData($users) === true) {
+                $usersArray = [];
+    
+                foreach ($users as $user) {
+                    $usersArray[] = $this->transform($user);
+                }
+    
+                return $usersArray;
+            } else {
+                return "Auncun utilisateur inscrit pour le moment";
+            }
         }
     }
 }

@@ -69,16 +69,20 @@ class AddressFormatter
      */
     public function transformAll($addresses)
     {
-        if ($this->surveyData->isNotNullData($addresses) === true) {
-            $addressesArray = [];
-
-            foreach ($addresses as $address) {
-                $addressesArray[] = $this->transform($address);
-            }
-
-            return $addressesArray;
+        if ($addresses === "undefined") {
+            return "undefined";
         } else {
-            return "Aucune adresse dans notre base pour le moment";
+            if ($this->surveyData->isNotNullData($addresses) === true) {
+                $addressesArray = [];
+    
+                foreach ($addresses as $address) {
+                    $addressesArray[] = $this->transform($address);
+                }
+    
+                return $addressesArray;
+            } else {
+                return "Aucune adresse dans notre base pour le moment";
+            }
         }
     }
 

@@ -39,7 +39,7 @@ class MovieFormatter
             'createdAt' => (string) $this->convertDate->toDateTimeFr($movie->getCreatedAt()->format('Y-m-d H:i:s'), true),
             // 'createdAt' => $this->convertDate->toStrDateTimeFr($movie->getCreatedAt()->format('Y-m-d H:i:s'), false),
             'director' => (string) $movie->getDirector(),
-            'trailor' => (string) $movie->getTrailer()
+            'trailer' => (string) $movie->getTrailer()
         ];
     }
 
@@ -61,16 +61,20 @@ class MovieFormatter
      */
     public function transformAll($movies)
     {
-        if ($this->surveyData->isNotNullData($movies) === true) {
-            $moviesArray = [];
-
-            foreach ($movies as $movie) {
-                $moviesArray[] = $this->transform($movie);
-            }
-
-            return $moviesArray;
+        if ($movies === "undefined") {
+            return "undefined";
         } else {
-            return "Aucun film dans notre base pour le moment";
+            if ($this->surveyData->isNotNullData($movies) === true) {
+                $moviesArray = [];
+    
+                foreach ($movies as $movie) {
+                    $moviesArray[] = $this->transform($movie);
+                }
+    
+                return $moviesArray;
+            } else {
+                return "Aucun film dans notre base pour le moment";
+            }
         }
     }
 
