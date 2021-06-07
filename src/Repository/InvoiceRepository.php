@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Invoice;
+use App\Services\EntityFormatter\InvoiceFormatter;
+use App\Services\UtilitiesService\SurveyData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,9 +16,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class InvoiceRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $surveyData;
+
+    private $invoiceFormater;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        SurveyData $surveyData,
+        InvoiceFormatter $invoiceFormater
+    )
     {
         parent::__construct($registry, Invoice::class);
+        $this->surveyData = $surveyData;
+        $this->invoiceFormater = $invoiceFormater;
     }
 
     // /**
@@ -47,4 +59,37 @@ class InvoiceRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * This function returns the list of transformed invoices | only to API
+     *
+     * @return array | invoices
+     */
+    public function getAllInvoices()
+    {
+
+        $invoices = $this->findAll();
+        // $invoices = null;
+        // $invoices = "";
+        // $invoices = [];
+        if (!isset($invoices)) {
+            $invoices = "undefined";
+        }
+        
+        return $this->invoiceFormater->transformAll($invoices);
+    }
+
+    /**
+     * This function will search the database for the invoice whose id is indicated as a parameter, 
+     * then it will call the transform () function to obtain the correct output format before sending it to the invoice | only to API.
+     *
+     * @return invoice | invoice
+     */
+    public function getInvoiceById($id)
+    {
+        if ($this->surveyData->isNumExist($id) === true) {
+            $invoice = $this->find($id);
+            return $this->invoiceFormater->transform($invoice);
+        }
+    }
 }

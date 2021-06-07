@@ -24,7 +24,7 @@ class APIUserController extends APIDefaultController
     /**
      * This function returns the users list or not found error.
      * 
-     * @Route("/getAllUsers", methods={"GET"})
+     * @Route("/GetAll", methods={"GET"})
      */
     public function apiUserIndex()
     {
@@ -35,7 +35,7 @@ class APIUserController extends APIDefaultController
      * This function retrieves the json user sent in the http request, transforms it into a user entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/createUser", methods={"POST"})
+     * @Route("/Post", methods={"POST"})
      */
     public function apiUserCreate(Request $request)
     {
@@ -44,7 +44,7 @@ class APIUserController extends APIDefaultController
 
     /**
      * This function returns the user whose identifier is given as a parameter
-     * @Route("/getUserById/{id}", methods={"GET"})
+     * @Route("/Get/{id}", methods={"GET"})
      */
     public function apiUserShow(User $user = null, Request $request)
     {
@@ -54,7 +54,7 @@ class APIUserController extends APIDefaultController
     /**
      * This function retrieves the json user sent in the http request, transforms it into a user entity and then updates it in the database.
      * 
-     * @Route("/updateUser/{id}", methods={"PUT","PATCH"})
+     * @Route("/Update/{id}", methods={"PUT","PATCH"})
      */
     public function apiUserEdit(User $user = null, Request $request)
     {        

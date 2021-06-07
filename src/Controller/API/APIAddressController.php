@@ -24,7 +24,7 @@ class APIAddressController
     /**
      * This function returns the addresses list or not found error.
      * 
-     * @Route("/getAllAddresses", methods={"GET"})
+     * @Route("/GetAll", methods={"GET"})
      */
     public function apiAddressIndex()
     {
@@ -35,7 +35,7 @@ class APIAddressController
      * This function retrieves the json address sent in the http request, transforms it into a address entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/createAddress", methods={"POST"})
+     * @Route("/Post", methods={"POST"})
      */
     public function apiAddressCreate(Request $request)
     {
@@ -44,7 +44,7 @@ class APIAddressController
 
     /**
      * This function returns the address whose identifier is given as a parameter
-     * @Route("/getAddresseById/{id}", methods={"GET"})
+     * @Route("/Get/{id}", methods={"GET"})
      */
     public function apiAddressShow(Address $address = null, Request $request)
     {
@@ -54,7 +54,7 @@ class APIAddressController
     /**
      * This function retrieves the json address sent in the http request, transforms it into a address entity and then updates it in the database.
      * 
-     * @Route("/updateAddress/{id}", methods={"PUT","PATCH"})
+     * @Route("/Update/{id}", methods={"PUT","PATCH"})
      */
     public function apiAddressEdit(Address $address = null, Request $request)
     {
@@ -63,7 +63,7 @@ class APIAddressController
 
     /**
      * This function deletes the address whose identifier is given in parameter
-     * @Route("/deleteAdresse/{id}", methods={"DELETE"})
+     * @Route("/Delete/{id}", methods={"DELETE"})
      */
     public function apiAddressDelete(Address $address = null, Request $request)
     {

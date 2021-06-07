@@ -25,11 +25,11 @@ class AddressFormatter
      *
      * @return array
      */
-    public function managAddress(Address $address, $displayFromUser = false)
+    public function managAddress(Address $address, $displayUser = true)
     {
         $user = $address->getUser();
 
-        if ($displayFromUser === false) {
+        if ($displayUser === true) {
             return [
                 'id' => (int) $address->getId(),
                 'streetNb' => (string) $address->getStreetNb(),
@@ -37,7 +37,7 @@ class AddressFormatter
                 'postal' => (string) $address->getPostal(),
                 'city' => (string) $address->getCity(),
                 'type' => (string) $address->getType(),
-                'user' => $this->userFormatter->managUser($user, true)
+                'user' => $this->userFormatter->managUser($user, false)
             ];
         } else {
             return [
@@ -69,16 +69,20 @@ class AddressFormatter
      */
     public function transformAll($addresses)
     {
-        if ($this->surveyData->isNotNullData($addresses) === true) {
-            $addressesArray = [];
-
-            foreach ($addresses as $address) {
-                $addressesArray[] = $this->transform($address);
-            }
-
-            return $addressesArray;
+        if ($addresses === "undefined") {
+            return "undefined";
         } else {
-            return "Aucune adresse dans notre base pour le moment";
+            if ($this->surveyData->isNotNullData($addresses) === true) {
+                $addressesArray = [];
+    
+                foreach ($addresses as $address) {
+                    $addressesArray[] = $this->transform($address);
+                }
+    
+                return $addressesArray;
+            } else {
+                return "Aucune adresse dans notre base pour le moment";
+            }
         }
     }
 
