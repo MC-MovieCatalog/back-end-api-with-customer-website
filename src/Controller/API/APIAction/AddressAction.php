@@ -38,10 +38,14 @@ class AddressAction extends APIDefaultController
     {
         $addresses = $this->addressRepo->getAllAddresses();
 
-        if ($addresses != 'Aucune addresse dans notre base pour l\'instant') {
-            return $this->respond($addresses);
+        if ($addresses === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($addresses != 'Aucune adresse dans notre base pour le moment') {
+                return $this->respond($addresses);
+            } else {
+                return $this->respondNotFound('Aucune adresse dans notre base pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 

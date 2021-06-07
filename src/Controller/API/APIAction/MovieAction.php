@@ -32,10 +32,14 @@ class MovieAction extends APIDefaultController
     {
         $movies = $this->movieRepo->getAllMovies();
 
-        if ($movies != 'Aucune vidéo en stock pour le moment') {
-            return $this->respond($movies);
+        if ($movies === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($movies != 'Aucun film dans notre base pour le moment') {
+                return $this->respond($movies);
+            } else {
+                return $this->respondNotFound('Aucun film dans notre base pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 

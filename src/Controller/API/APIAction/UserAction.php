@@ -44,10 +44,14 @@ class UserAction extends APIDefaultController
     {
         $users = $this->userRepo->getAllUsers();
 
-        if ($users != 'Auncun utilisateur inscrit pour le moment') {
-            return $this->respond($users);
+        if ($users === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($users != 'Auncun utilisateur inscrit pour le moment') {
+                return $this->respond($users);
+            } else {
+                return $this->respondNotFound('Auncun utilisateur inscrit pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 
