@@ -73,6 +73,9 @@ class MovieRepository extends ServiceEntityRepository
         // $movies = "";
         // $movies = [];
 
+        if (!isset($movies)) {
+            $movies = "undefined";
+        }
         return $this->movieFormater->transformAll($movies);
     }
 

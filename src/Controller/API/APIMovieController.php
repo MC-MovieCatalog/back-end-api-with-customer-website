@@ -24,7 +24,7 @@ class APIMovieController
     /**
      * This function returns the movies list or not found error.
      * 
-     * @Route("/getAllMovies", methods={"GET"})
+     * @Route("/GetAll", methods={"GET"})
      */
     public function apiMovieIndex()
     {
@@ -35,7 +35,7 @@ class APIMovieController
      * This function retrieves the json movie sent in the http request, transforms it into a movie entity and then saves it in the database. 
      * In all other cases, it appears an error.
      * 
-     * @Route("/createMovie", methods={"POST"})
+     * @Route("/Post", methods={"POST"})
      */
     public function apiMovieCreate(Request $request)
     {
@@ -44,7 +44,7 @@ class APIMovieController
 
     /**
      * This function returns the movie whose identifier is given as a parameter
-     * @Route("/getMovieById/{id}", methods={"GET"})
+     * @Route("/Get/{id}", methods={"GET"})
      */
     public function apiMovieShow(Movie $movie = null, Request $request)
     {
@@ -54,7 +54,7 @@ class APIMovieController
     /**
      * This function retrieves the json movie sent in the http request, transforms it into a movie entity and then updates it in the database.
      * 
-     * @Route("/updateMovie/{id}", methods={"PUT","PATCH"})
+     * @Route("/Update/{id}", methods={"PUT","PATCH"})
      */
     public function apiMovieEdit(Movie $movie = null, Request $request)
     {
@@ -63,7 +63,7 @@ class APIMovieController
 
     /**
      * This function deletes the movie whose identifier is given in parameter
-     * @Route("/deleteMovie/{id}", methods={"DELETE"})
+     * @Route("/Delete/{id}", methods={"DELETE"})
      */
     public function apiMovieDelete(Movie $movie = null, Request $request)
     {

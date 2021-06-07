@@ -32,10 +32,14 @@ class MovieAction extends APIDefaultController
     {
         $movies = $this->movieRepo->getAllMovies();
 
-        if ($movies != 'Aucune vidéo en stock pour le moment') {
-            return $this->respond($movies);
+        if ($movies === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($movies != 'Aucun film dans notre base pour le moment') {
+                return $this->respond($movies);
+            } else {
+                return $this->respondNotFound('Aucun film dans notre base pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 
@@ -81,7 +85,7 @@ class MovieAction extends APIDefaultController
 
     public function show(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
 
         if (empty($movie)) {
             return $this->respondNotFound($error);
@@ -97,7 +101,7 @@ class MovieAction extends APIDefaultController
 
     public function update(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvée...';
 
         if (empty($movie)) {
             return $this->respondNotFound($error);
@@ -156,7 +160,7 @@ class MovieAction extends APIDefaultController
 
     public function delete(Movie $movie = null, Request $request)
     {
-        $error = 'La ressource que vous cherchez à supprimer n\'a pas été trouvé...';
+        $error = 'La ressource que vous cherchez à supprimer n\'a pas été trouvée...';
         $success = ['Success' => 'La ressource a bien été supprimée...'];
 
         if (empty($movie)) {

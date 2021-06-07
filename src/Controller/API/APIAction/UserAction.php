@@ -44,10 +44,14 @@ class UserAction extends APIDefaultController
     {
         $users = $this->userRepo->getAllUsers();
 
-        if ($users != 'Auncun utilisateur inscrit pour le moment') {
-            return $this->respond($users);
+        if ($users === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($users != 'Auncun utilisateur inscrit pour le moment') {
+                return $this->respond($users);
+            } else {
+                return $this->respondNotFound('Auncun utilisateur inscrit pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 
@@ -114,7 +118,7 @@ class UserAction extends APIDefaultController
 
     public function show(User $user = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
@@ -130,7 +134,7 @@ class UserAction extends APIDefaultController
 
     public function update(User $user = null, Request $request)
     {        
-        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
