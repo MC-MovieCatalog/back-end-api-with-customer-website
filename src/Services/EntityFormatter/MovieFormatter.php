@@ -39,7 +39,8 @@ class MovieFormatter
             'createdAt' => (string) $this->convertDate->toDateTimeFr($movie->getCreatedAt()->format('Y-m-d H:i:s'), true),
             // 'createdAt' => $this->convertDate->toStrDateTimeFr($movie->getCreatedAt()->format('Y-m-d H:i:s'), false),
             'director' => (string) $movie->getDirector(),
-            'trailer' => (string) $movie->getTrailer()
+            'trailer' => (string) $movie->getTrailer(),
+            'slug' => (string) $movie->getSlug()
         ];
     }
 

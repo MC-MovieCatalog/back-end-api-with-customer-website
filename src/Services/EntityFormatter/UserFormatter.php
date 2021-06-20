@@ -47,7 +47,7 @@ class UserFormatter
             return [
                 'id' => (int) $user->getId(),
                 'roles' => (array) $user->getRoles(),
-                'isVerify' => (boolean) $user->isVerified(),
+                'isVerified' => (boolean) $user->isVerified(),
                 'email' => (string) $user->getEmail(),
                 'lastName' => (string) $user->getLastName(),
                 'firstName' => (string) $user->getFirstName(),
@@ -61,7 +61,7 @@ class UserFormatter
             return [
                 'id' => (int) $user->getId(),
                 'roles' => (array) $user->getRoles(),
-                'isVerify' => (boolean) $user->isVerified(),
+                'isVerified' => (boolean) $user->isVerified(),
                 'email' => (string) $user->getEmail(),
                 'lastName' => (string) $user->getLastName(),
                 'firstName' => (string) $user->getFirstName(),

@@ -62,4 +62,13 @@ class APIUserController extends APIDefaultController
     }
 
     // Fonction désactivation compte utilisateur à implémenter.
+
+    /**
+     * This function deletes the user whose identifier is given in parameter
+     * @Route("/Delete/{id}", methods={"DELETE"})
+     */
+    public function apiUserDelete(User $user = null, Request $request)
+    {
+        return $this->userAction->delete($user, $request);
+    }
 }
