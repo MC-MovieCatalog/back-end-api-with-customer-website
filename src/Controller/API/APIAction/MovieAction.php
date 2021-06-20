@@ -69,6 +69,9 @@ class MovieAction extends APIDefaultController
                     ->setCover($jsonDataRequestToCreateMovie["cover"])
                     ->setDirector($jsonDataRequestToCreateMovie["director"])
                     ->setTrailer($jsonDataRequestToCreateMovie["trailer"]);
+                    if (array_key_exists("slug", $jsonDataRequestToCreateMovie)){
+                        $movie->setSlug($jsonDataRequestToCreateMovie["slug"]);
+                    }
 
                 // Movie persist
                 $this->manager->persist($movie);
@@ -143,6 +146,9 @@ class MovieAction extends APIDefaultController
                     }
                     if (array_key_exists("trailer", $jsonDataRequestToEditMovie)){
                         $movie->setTrailer($jsonDataRequestToEditMovie["trailer"]);
+                    }
+                    if (array_key_exists("slug", $jsonDataRequestToEditMovie)){
+                        $movie->setSlug($jsonDataRequestToEditMovie["slug"]);
                     }
 
                     // Movie flush in the database
