@@ -268,7 +268,7 @@ class ErrorAssert
     }
 
     /**
-     * This function checks whether the content of the specified value is not empty.
+     * This function checks whether the content of the specified value is flot.
      *
      * @param array $data
      * @param string $field
@@ -281,6 +281,26 @@ class ErrorAssert
             return ['field' => $field, 'message' => $message];
         }
     }
+
+    /**
+     * This function checks whether the content of the specified value is float or number.
+     *
+     * @param array $data
+     * @param string $field
+     * @param string $message
+     * @return array
+     */
+    protected function errorFloatOrIntegerAssert(array $data, string $field, string $message = 'Cette valeur doit être soit un nombre entier soit un nombre décimal')
+    {
+        if (is_float($data[$field]) === true) {
+        } else {
+            if (is_int($data[$field]) === true) {
+            } else {
+                return ['field' => $field, 'message' => $message];
+            }
+        }
+    }
+
     // public function errorAsset($data, $field, $lenght = null, $message = null)
     
     protected function errorUrlAssert(array $data, string $field, string $message = 'Cette url n\'est pas valide') {

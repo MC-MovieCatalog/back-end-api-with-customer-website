@@ -90,6 +90,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // $users = "";
         // $users = [];
         
+        if (!isset($users)) {
+            $users = "undefined";
+        }
+
         return $this->userFormater->transformAll($users);
     }
 

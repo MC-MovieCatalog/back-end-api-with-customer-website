@@ -44,10 +44,14 @@ class UserAction extends APIDefaultController
     {
         $users = $this->userRepo->getAllUsers();
 
-        if ($users != 'Auncun utilisateur inscrit pour le moment') {
-            return $this->respond($users);
+        if ($users === "undefined") {
+            return $this->respondInternalError('Erreur serveur inconnue');
         } else {
-            return $this->respondNotFound(); // This function can take a custom string message, but contains the default message: Not found
+            if ($users != 'Auncun utilisateur inscrit pour le moment') {
+                return $this->respond($users);
+            } else {
+                return $this->respondNotFound('Auncun utilisateur inscrit pour le moment'); // This function can take a custom string message, but contains the default message: Not found
+            }
         }
     }
 
@@ -87,6 +91,12 @@ class UserAction extends APIDefaultController
                     ->setFirstName($jsonDataRequestToCreateUser["firstName"])
                     ->setRoles(isset($jsonDataRequestToCreateUser['roles']) != false ? $jsonDataRequestToCreateUser['roles'] : array())
                     ->setAgreeTerms($jsonDataRequestToCreateUser["agreeTerms"]);
+                    if (array_key_exists("isActive", $jsonDataRequestToCreateUser)){
+                        $user->setIsActive($jsonDataRequestToCreateUser["isActive"]);
+                    }
+                    if (array_key_exists("isVerified", $jsonDataRequestToCreateUser)){
+                        $user->setIsVerified($jsonDataRequestToCreateUser["isVerified"]);
+                    }
 
                 // User persist
                 $this->manager->persist($user);
@@ -114,7 +124,7 @@ class UserAction extends APIDefaultController
 
     public function show(User $user = null, Request $request)
     {
-        $error = 'La ressource que vous recherchez n\'a pas été trouvé...';
+        $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
@@ -130,7 +140,7 @@ class UserAction extends APIDefaultController
 
     public function update(User $user = null, Request $request)
     {        
-        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvé...';
+        $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvée...';
 
         if (empty($user)) {
             return $this->respondNotFound($error);
@@ -151,8 +161,13 @@ class UserAction extends APIDefaultController
                 if ($this->userValidate->userUpdateValidateRequest($jsonDataRequestToEditUser) === null) {
                     if (array_key_exists("email", $jsonDataRequestToEditUser)){
                         
-                        $emailVerify = $this->userRepo->findBy(array('email' => $jsonDataRequestToEditUser["email"]),array('email' => 'ASC'),1 ,0)[0];
-                        if (!empty($emailVerify)) {
+                        if (!empty($this->userRepo->findBy(array('email' => $jsonDataRequestToEditUser["email"]),array('email' => 'ASC'),1 ,0)[0])) {
+                            $emailVerify = $this->userRepo->findBy(array('email' => $jsonDataRequestToEditUser["email"]),array('email' => 'ASC'),1 ,0)[0];
+                        } else {
+                            $emailVerify = null;
+                        }
+                        
+                        if ($emailVerify !== null) {
                             if ((string)$emailVerify->getId() !== $request->get('id')) {
                                 if ((string)$emailVerify->getEmail() === $jsonDataRequestToEditUser["email"]) {
                                     return $this->respondUnauthorized('Un compte existe déjà pour cette adresse email.');
@@ -170,6 +185,9 @@ class UserAction extends APIDefaultController
                     }
                     if (array_key_exists("firstName", $jsonDataRequestToEditUser)){
                         $user->setFirstName($jsonDataRequestToEditUser["firstName"]);
+                    }
+                    if (array_key_exists("password", $jsonDataRequestToEditUser)){
+                        $user->setPassword($jsonDataRequestToEditUser["password"]);
                     }
                     if (array_key_exists("isActive", $jsonDataRequestToEditUser)){
                         $user->setIsActive($jsonDataRequestToEditUser["isActive"]);
@@ -192,4 +210,22 @@ class UserAction extends APIDefaultController
     }
 
     // Fonction désactivation compte utilisateur à implémenter.
+
+    public function delete(User $user = null, Request $request)
+    {
+        $error = 'La ressource que vous cherchez à supprimer n\'a pas été trouvée...';
+        $success = ['Success' => 'La ressource a bien été supprimée...'];
+
+        if (empty($user)) {
+            return $this->respondNotFound($error);
+        } else if ($request->get('id') !== (string)$user->getId()) {
+            return $this->respondNotFound($error);
+        } else if (!empty($user)) {
+            $this->manager->remove($user);
+            $this->manager->flush();
+            return $this->respond($success);
+        } else {
+            return $this->respondNotFound($error);
+        }
+    }
 }

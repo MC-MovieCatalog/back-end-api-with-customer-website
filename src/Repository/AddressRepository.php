@@ -67,12 +67,16 @@ class AddressRepository extends ServiceEntityRepository
     public function getAllAddresses()
     {
 
-        $address = $this->findAll();
-        // $address = null;
-        // $address = "";
-        // $address = [];
+        $addresses = $this->findAll();
+        // $addresses = null;
+        // $addresses = "";
+        // $addresses = [];
 
-        return $this->addressFormater->transformAll($address);
+        if (!isset($addresses)) {
+            $addresses = "undefined";
+        }
+
+        return $this->addressFormater->transformAll($addresses);
     }
 
     /**
