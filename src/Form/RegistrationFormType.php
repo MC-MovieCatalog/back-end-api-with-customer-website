@@ -41,7 +41,7 @@ class RegistrationFormType extends FormConfig
                 )
             ]))
             ->add('agreeTerms', CheckboxType::class, [
-                'label'    => 'Jaccepte les termes et les coditions d\'utilisation',
+                'label'    => 'J\'accepte les termes et les conditions générales d\'utilisation.',
                 'data' => false,
                 'label_attr' => ['class' => 'checkbox-custom'],
                 'required' => false,
