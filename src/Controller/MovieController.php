@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MovieController extends AbstractController
 {
-
     private $manager;
 
     private $movieRepository;
@@ -31,9 +30,6 @@ class MovieController extends AbstractController
     {
         $movies = $this->movieRepository->findAll();
         $topTenMovies = $this->movieRepository->getTopTenMovies();
-
-        // dd($topTenMovie);
-        // dd($movies);
 
         return $this->render('movie_catalog/movie/movies.html.twig', [
             'movies' => $movies,

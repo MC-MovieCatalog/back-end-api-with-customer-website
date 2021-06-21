@@ -154,6 +154,17 @@ class CustomValidator extends ErrorAssert
         return $floatErrors;
     }
 
+    protected function customFloatOrIntegerValidator($request, $field)
+    {
+        $floatIntegerErrors = [];
+        // if not float/double/int value ?
+        if ($this->errorFloatOrIntegerAssert($request, $field)) {
+            array_push($floatIntegerErrors, $this->errorFloatOrIntegerAssert($request, $field));
+        }
+
+        return $floatIntegerErrors;
+    }
+
 
     protected function customBooleanValidator($request, $field)
     {

@@ -22,10 +22,12 @@ class MovieValidate extends CustomValidator
         $errors = [];
 
         $duration = $this->errorDefinedAssert($request, 'duration') ? $this->customStringValidator($request, 'duration', 2, 255): null;
-        $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
+        // $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
+        $link = $this->errorDefinedAssert($request, 'link') ? $this->customStringValidator($request, 'link', 5, 80): null;
         $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
+        // $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
         $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
-        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatOrIntegerValidator($request, 'price'): null;
         $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
         $director = $this->errorDefinedAssert($request, 'director') ? $this->customStringValidator($request, 'director', 5, 255): null;
         $trailer = $this->errorDefinedAssert($request, 'trailer') ? $this->customStringValidator($request, 'trailer', 5, 255): null;
@@ -160,10 +162,11 @@ class MovieValidate extends CustomValidator
         $errors = [];
 
         $duration = $this->errorDefinedAssert($request, 'duration') ? $this->customStringValidator($request, 'duration', 2, 255): null;
-        $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
+        $link = $this->errorDefinedAssert($request, 'link') ? $this->customStringValidator($request, 'link', 5, 80): null;
+        // $link = $this->errorDefinedAssert($request, 'link') ? $this->customUrlValidator($request, 'link', 28, 255): null;
         $description = $this->errorDefinedAssert($request, 'description') ? $this->customStringValidator($request, 'description', 11, 255): null;
         $title = $this->errorDefinedAssert($request, 'title') ? $this->customStringValidator($request, 'title', 5, 80): null;
-        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatValidator($request, 'price'): null;
+        $price = $this->errorDefinedAssert($request, 'price') ? $this->customFloatOrIntegerValidator($request, 'price'): null;
         $cover = $this->errorDefinedAssert($request, 'cover') ? $this->customStringValidator($request, 'cover', 5, 255): null;
         $director = $this->errorDefinedAssert($request, 'director') ? $this->customStringValidator($request, 'director', 5, 255): null;
         $trailer = $this->errorDefinedAssert($request, 'trailer') ? $this->customStringValidator($request, 'trailer', 5, 255): null;

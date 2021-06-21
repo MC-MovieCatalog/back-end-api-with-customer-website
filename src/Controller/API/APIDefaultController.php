@@ -103,6 +103,18 @@ class APIDefaultController extends AbstractController
     }
 
     /**
+     * Returns a 500 Internal
+     *
+     * @param string $message
+     *
+     * @return Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function respondInternalError($message = 'Internal error!')
+    {
+        return $this->setStatusCode(500)->respondWithErrors($message);
+    }
+
+    /**
      * Returns a 201 Created
      *
      * @param array $data

@@ -93,14 +93,14 @@ class FakeMovieData
             'id' => 7,
             'duration' => '1h45',
             /* 'link' => 'https://www.youtube.com/watch?v=yBDkPoUhzGc',*/
-            'link' => 'yBDkPoUhzGc',
+            'link' => 'uVM1TZvq_zk',
             'description' => 'Surfant sur le succès de son premier film, Herbert Biberman, un jeune cinéaste, profite de sa gloire naissante pour faire des projets d\'avenir. Cependant l\'heure n\'est pas aux réjouissances : la guerre froide bat son plein et le Sénat crée...',
             'title' => 'One of the Hollywood Ten',
             'price' => 16.00,
             'cover' => 'https://i.ytimg.com/vi_webp/yBDkPoUhzGc/maxresdefault.webp',
             'director' => 'Karl Francis',
             /* 'trailer' => 'https://www.youtube.com/watch?v=EaS4H2jpHIs',*/
-            'trailer' => 'EaS4H2jpHIs',
+            'trailer' => 'U0w8Rpaf8CI',
             'genre' => 'Adolescent, Comédie'
         ),
         array(
