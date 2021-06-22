@@ -64,7 +64,7 @@ class InvoiceFormatter
 
         return [
             'id' => (int) $invoice->getId(),
-            // 'customerId' => (int) $invoice->getCustomer()->getId(),
+            'customerId' => (int) $invoice->getCustomer()->getId(),
             'customer' => $this->userFormatter->managUser($customer, false),
             // 'addressId' => (int) $invoice->getAddress()->getId(),
             'address' => $this->addressFormater->managAddress($address, false),
