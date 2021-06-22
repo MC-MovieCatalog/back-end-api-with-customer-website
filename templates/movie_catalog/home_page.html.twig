@@ -22,11 +22,11 @@
 							<div class="slider-inner h-100">
 								<div class="row align-items-center h-100">
 									<div class="col-xl-6 col-lg-12 col-md-12">
-										<h1 class="slider-text title text-uppercase slider-detail-description" data-animation-in="fadeInLeft" data-delay-in="0.6">{{topTenMovie.title}}</h1>
+										<h1 class="slider-text title text-uppercase" data-animation-in="fadeInLeft" data-delay-in="0.6" style="text-shadow: 3px 3px 20px black;">{{topTenMovie.title}}</h1>
 										<div class="d-flex align-items-center" data-animation-in="fadeInUp" data-delay-in="1">
 											<span class="badge badge-secondary p-2">18+</span>
 										</div>
-										<p class="slider-detail-description" data-animation-in="fadeInUp" data-delay-in="1.2">{{topTenMovie.description}}</p>
+										<p data-animation-in="fadeInUp" data-delay-in="1.2" style="text-shadow: 1px 1px 2px black;">{{topTenMovie.description}}</p>
 										<div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
 											<a href="{{ path('details', { 'slug': topTenMovie.slug }) }}" class="btn btn-hover">
 												<i class="fa fa-play mr-2" aria-hidden="true"></i>Lecture</a>
