@@ -1,6 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %}profil utilisateur x...{% endblock %}
+{% block title %}
+    {% if app.user %}
+        {{ app.user.firstName }} {{ app.user.lastName }}
+        {% else %}
+            Profil utilisateur
+    {% endif %}
+    
+{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
