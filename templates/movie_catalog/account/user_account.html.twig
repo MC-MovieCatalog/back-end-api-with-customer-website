@@ -14,7 +14,7 @@
             <div class="col-lg-4 mb-3">
                 <div class="sign-user_card text-center">
                     <img src={{ asset('assets/movie_catalog_front_office/images/user/user.jpg') }} class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user">
-                    <h4 class="mb-3">John Doe</h4>
+                    <h4 class="mb-3">{{ user.fullName }}</h4>
                     <a href="#" class="edit-icon text-primary">Modifier</a>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                     <div class="row align-items-center justify-content-between mb-3">
                         <div class="col-md-8">
                             <span class="text-light font-size-13">Email</span>
-                            <p class="mb-0">example@gmail.com</p>
+                            <p class="mb-0">{{ user.email }}</p>
                         </div>   
                         <div class="col-md-4 text-md-right text-left">                      
                             <a href="#" class="text-primary">Changer</a>

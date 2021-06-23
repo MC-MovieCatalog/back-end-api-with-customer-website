@@ -14,6 +14,7 @@ class UserController extends AbstractController
     {
         return $this->render('movie_catalog/account/user_account.html.twig', [
             // 'controller_name' => 'HomePageController',
+            'user' => $this->getUser()
         ]);
     }
 
