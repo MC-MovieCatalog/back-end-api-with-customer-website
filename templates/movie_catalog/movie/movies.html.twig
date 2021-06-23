@@ -5,30 +5,28 @@
 
 {% block body %}
 	<!-- Slider Start -->
-    {% if movies %}
-	<section class="iq-main-slider p-0">
-		<div id="tvshows-slider">
-        {% for topTenMovie in topTenMovies %}
-			<div>
-				<a href="{{ path('details', { 'slug': topTenMovie.slug }) }}">
-					<div class="shows-img">
-						<img src={{ topTenMovie.cover }} class="w-100" alt="{{topTenMovie.title}}">
-						<div class="shows-content">
-							<h4 class="text-white mb-1">{{topTenMovie.title}}</h4>
-							<div class="movie-time d-flex align-items-center">
-								<div class="badge badge-secondary p-1 mr-2">13+</div>
-								<span class="text-white">{{topTenMovie.duration}}</span>
+	{% if movies %}
+		<section class="iq-main-slider p-0">
+			<div id="tvshows-slider">
+				{% for topTenMovie in topTenMovies %}
+					<div>
+						<a href="{{ path('details', { 'slug': topTenMovie.slug }) }}">
+							<div class="shows-img">
+								<img src={{ topTenMovie.cover }} class="w-100" alt="{{topTenMovie.title}}">
+								<div class="shows-content">
+									<h4 class="text-white mb-1">{{topTenMovie.title}}</h4>
+									<div class="movie-time d-flex align-items-center">
+										<div class="badge badge-secondary p-1 mr-2">18+</div>
+										<span class="text-white">{{topTenMovie.duration}}</span>
+									</div>
+								</div>
 							</div>
-						</div>
+						</a>
 					</div>
-				</a>
+				{% endfor %}
 			</div>
-            
-        {% endfor %}
-		</div>
-	</section>
-        
-    {% endif %}
+		</section>
+	{% endif %}
 	<!-- Slider End -->
 	<!-- MainContent -->
 	<div class="main-content">
@@ -38,7 +36,7 @@
 					<div class="col-sm-12 overflow-hidden">
 						{% if movies %}
 							<div class="iq-main-header d-flex align-items-center justify-content-between">
-								<h4 class="main-title">ABCD</h4>
+								<h4 class="main-title">Nos films</h4>
 							</div>
 							<div class="favorites-contens">
 								<ul class="favorites-slider list-inline  row p-0 mb-0">
@@ -54,7 +52,7 @@
 														<div
 															class="movie-time d-flex align-items-center my-2">
 															{# TO CHECK age limit #}
-															<div class="badge badge-secondary p-1 mr-2">5+</div>
+															<div class="badge badge-secondary p-1 mr-2">18+</div>
 															<span class="text-white">{{movie.duration}}</span>
 														</div>
 													</div>
@@ -64,9 +62,10 @@
 									{% endfor %}
 								</ul>
 							{% else %}
-								<div class="iq-main-header d-flex align-items-center justify-content-between">
+								<div
+									class="iq-main-header d-flex align-items-center justify-content-between">
 									{# TO CHECK text #}
-                                    <h4 class="main-title">Aucun résultat / Contenu vide</h4>
+									<h4 class="main-title">Aucun résultat / Contenu vide</h4>
 								</div>
 
 							{% endif %}

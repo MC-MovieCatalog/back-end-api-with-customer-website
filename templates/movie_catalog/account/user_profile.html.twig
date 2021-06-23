@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}
+{% block title %}|
     {% if app.user %}
         {{ app.user.firstName }} {{ app.user.lastName }}
         {% else %}
@@ -30,42 +30,26 @@
                             </div>
                             <div class="col-lg-10 device-margin">
                                 <div class="profile-from">
-                                    <h4 class="mb-3">Manage Profile</h4>
+                                    <h4 class="mb-3">Gérer mon profile</h4>
                                     <form class="mt-4" action="index.html">
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control mb-0" id="exampleInputl2"
-                                                placeholder="Enter Your Name" autocomplete="off" required>
+                                            <label>Nom</label>
+                                            <h1 type="text" class="form-control mb-0" id="exampleInputl2"
+                                                placeholder="Entrer votre nom" autocomplete="off" required>
+                                                {{user.lastName}}
+                                            <h1>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date of Birth</label>
-                                            <input type="text" class="form-control date-input basicFlatpickr mb-0" placeholder="Select Date" id="exampleInputPassword2"
-                                            required>
+                                            <label>Prénom</label>
+                                            <h2 type="text" class="form-control mb-0" id="exampleInputl2"
+                                                placeholder="Entrer votre prénom" autocomplete="off" required>
+                                                {{user.firstName}}
+                                            </h2>
                                         </div>
-                                        <div class="form-group d-flex flex-md-row flex-column">
-                                            <div class="iq-custom-select d-inline-block manage-gen">
-                                                <select name="cars" class="form-control pro-dropdown">
-                                                    <option value="female">Female</option>
-                                                    <option value="male">Male</option>
-                                                </select>
-                                            </div>
-                                            <div class="iq-custom-select d-inline-block lang-dropdown manage-dd">
-                                                <select name="cars" class="form-control pro-dropdown" id="lang"
-                                                    multiple="multiple">
-                                                    <option value="english">English</option>
-                                                    <option value="hindi">Hindi</option>
-                                                    <option value="gujarati">Gujarati</option>
-                                                    <option value="bengali">Bengali</option>
-                                                    <option value="marathi">Marathi</option>
-                                                    <option value="tamil">Tamil</option>
-                                                    <option value="kannada">Kannada</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-hover">Save</a>
-                                            <a href="#" class="btn btn-link">Cancel</a>
-                                        </div>
+                                        {# <div class="d-flex">
+                                            <a href="#" class="btn btn-hover">Sauvegader</a>
+                                            <a href="#" class="btn btn-link">Annuler</a>
+                                        </div> #}
                                     </form>
                                 </div>
                             </div>

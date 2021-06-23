@@ -1,30 +1,26 @@
 <!doctype html>
 <html lang="en-US">
-   <head>
-      {% include "/partials_layout/css.html.twig" %}
-      {# {{ encore_entry_link_tags('app') }} #}
-      <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+	<head>
+		{% include "/partials_layout/css.html.twig" %}
+		{# {{ encore_entry_link_tags('app') }} #}
+		<link rel="stylesheet" href="{{ asset('build/app.css') }}">
+		<title>MovieCatalog
+			{% block title %}{% endblock %}
+		</title>
+		{% block stylesheets %}{% endblock %}
+	</head>
+	<body>
+		{% include "/partials_layout/header.base.html.twig" %}
 
-    <title>MovieCatalog {% block title %}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-
-   </head>
-    <body>
-        {% include "/partials_layout/header.base.html.twig" %}
-
-        <!--Start Main app-->
-        {% block body %}{% endblock %}
-        <!--End Main app-->
-        
-
-        {% include "/partials_layout/footer.base.html.twig" %}
-
-        <!--Start custom js-->
-        {% block javascripts %}{% endblock %}
-        <!--Start custom js-->
-
-        {% include "/partials_layout/js.html.twig" %}
-        {# {{ encore_entry_script_tags('app') }} #}
-        <script src="{{ asset('build/app.js') }}"></script>
-    </body>
+		<!--Start Main app-->
+		{% block body %}{% endblock %}
+		<!--End Main app-->
+		{% include "/partials_layout/footer.base.html.twig" %}
+		<!--Start custom js-->
+		{% block javascripts %}{% endblock %}
+		<!--Start custom js-->
+		{% include "/partials_layout/js.html.twig" %}
+		{# {{ encore_entry_script_tags('app') }} #}
+		<script src="{{ asset('build/app.js') }}"></script>
+	</body>
 </html>
