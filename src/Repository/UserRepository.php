@@ -110,4 +110,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             return $this->userFormater->transform($user);
         }
     }
+
+    /**
+     * This function will search the database for the user whose email is indicated as a parameter, 
+     * then it will call the transform () function to obtain the correct output format before sending it to the user | only to API.
+     *
+     * @return User | user
+     */
+    public function getUserByEmail($email)
+    {
+        if ($this->surveyData->isNotNullData($email) === true) {
+            $user = $this->findOneBy(array('email' => $email));
+            return $this->userFormater->transform($user);
+        }
+    }
 }

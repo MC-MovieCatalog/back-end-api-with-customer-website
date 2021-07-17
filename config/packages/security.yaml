@@ -66,11 +66,10 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: /api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, method: [GET, PUT, DELETE]  }
-        # - { path: ^/api/movies, roles: IS_AUTHENTICATED_FULLY}
-        # - { path: ^/api/adresses, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/api/users, roles: ROLE_ADMIN, method: [GET, PUT, DELETE]  }
+        - { path: ^/api/movies, roles: ROLE_ADMIN, method: [GET, PUT, DELETE]}
+        - { path: ^/api/adresses, roles: ROLE_ADMIN, method: [GET, PUT, DELETE]}
+        - { path: ^/api/invoices, roles: ROLE_ADMIN, method: [GET, PUT, DELETE]}
 
     role_hierarchy:
-            ROLE_CUSTOMER: ROLE_USER
-            ROLE_FULL_CUSTOMER: ROLE_CUSTOMER
-            ROLE_ADMIN: [ROLE_FULL_CUSTOMER, ROLE_ALLOWED_TO_SWITCH]
+            ROLE_ADMIN: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_ALLOWED_TO_SWITCH]

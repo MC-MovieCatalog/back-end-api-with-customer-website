@@ -92,4 +92,21 @@ class InvoiceRepository extends ServiceEntityRepository
             return $this->invoiceFormater->transform($invoice);
         }
     }
+
+    public function findInvoiceById($id){
+        $qb = $this->createQueryBuilder('i');
+
+        $qb->select('i as invoice')
+            ->innerJoin('i.customer', 'c')
+            ->innerJoin('i.address', 'a')
+            ->innerJoin('i.movies', 'm')
+
+            ->addSelect('c')
+            ->addSelect('a')
+            ->addSelect('m')
+            ->where('i.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getResult()[0]["invoice"];
+    }
 }

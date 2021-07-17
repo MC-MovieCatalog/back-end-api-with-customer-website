@@ -138,6 +138,22 @@ class UserAction extends APIDefaultController
         }
     }
 
+    public function getUserByEmail(User $user = null, Request $request)
+    {
+        $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
+
+        if (empty($user)) {
+            return $this->respondNotFound($error);
+        } else if ($request->get('email') !== (string)$user->getEmail()) {
+            return $this->respondNotFound($error);
+        } else if (!empty($user)) {
+            $user = $this->userRepo->getUserByEmail($user->getEmail());
+            return $this->respond($user);
+        } else {
+            return $this->respondNotFound($user);
+        }
+    }
+
     public function update(User $user = null, Request $request)
     {        
         $error = 'La ressource que vous cherchez à modifier n\'a pas été trouvée...';
