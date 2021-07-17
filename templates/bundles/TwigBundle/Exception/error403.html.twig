@@ -1,0 +1,15 @@
+{% extends 'error.html.twig' %}
+
+{% block title %}403{% endblock %}
+
+{% block body %}
+    <span class="display-1 d-block">403</span>
+    <br>
+    <img src="{{ asset('/assets/movie_catalog_front_office/images/logo.png') | imagine_filter('logo_error') }}" alt="page d'erreur">
+    <br>
+    <div class="alert alert-danger">
+        <p>Vous n'avez pas le droit d'accéder à cette ressource !</p>
+    </div>
+    <a href="{{ path('home') }}" class="btn btn-secondary" role="button">Revenir au site</a>
+{% endblock %}
+
