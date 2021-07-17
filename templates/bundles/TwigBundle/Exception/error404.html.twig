@@ -1,0 +1,14 @@
+{% extends 'error.html.twig' %}
+
+{% block title %}400{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <span class="display-1 d-block">404</span>
+    <br>
+    <img src="{{ asset('/assets/movie_catalog_front_office/images/logo.png') }}" alt="page d'erreur">
+    <br>
+    <div class="mb-4 lead">La page que vous recherchez n'a pas été trouvée.</div>
+    <a href="{{ path('home') }}" class="btn btn-secondary" role="button">Revenir au site</a>
+{% endblock %}
+
