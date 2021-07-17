@@ -105,5 +105,6 @@ Authorization: Bearer {token}
 ## Installation
 Trois nouvelles branches
 ````bash
-Branche app_recette
+Branche recette
+Branche test
 ````
