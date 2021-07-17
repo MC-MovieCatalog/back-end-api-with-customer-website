@@ -101,4 +101,9 @@ Exemple de token généré
 Pour utiliser le token généré, il faut configurer le type d'authorisation suivant
 ````bash
 Authorization: Bearer {token}
+
+## Installation
+Trois nouvelles branches
+````bash
+Branche app_recette
 ````
