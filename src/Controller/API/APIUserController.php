@@ -52,6 +52,15 @@ class APIUserController extends APIDefaultController
     }
 
     /**
+     * This function returns the user whose email is given as a parameter
+     * @Route("/GetUserByEmail/{email}", methods={"GET"})
+     */
+    public function apiGetUserByEmail(User $user = null, Request $request)
+    {
+        return $this->userAction->getUserByEmail($user, $request);
+    }
+
+    /**
      * This function retrieves the json user sent in the http request, transforms it into a user entity and then updates it in the database.
      * 
      * @Route("/Update/{id}", methods={"PUT","PATCH"})
