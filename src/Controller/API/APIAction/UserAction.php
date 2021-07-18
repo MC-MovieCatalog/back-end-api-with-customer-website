@@ -142,12 +142,10 @@ class UserAction extends APIDefaultController
     {
         $error = 'La ressource que vous recherchez n\'a pas été trouvée...';
 
-        if (empty($user)) {
+        if (empty($request->get('email'))) {
             return $this->respondNotFound($error);
-        } else if ($request->get('email') !== (string)$user->getEmail()) {
-            return $this->respondNotFound($error);
-        } else if (!empty($user)) {
-            $user = $this->userRepo->getUserByEmail($user->getEmail());
+        } else if ($request->get('email')) {
+            $user = $this->userRepo->getUserByEmail($request->get('email'));
             return $this->respond($user);
         } else {
             return $this->respondNotFound($user);
