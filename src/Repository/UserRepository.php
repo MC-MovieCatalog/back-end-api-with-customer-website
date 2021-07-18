@@ -121,7 +121,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         if ($this->surveyData->isNotNullData($email) === true) {
             $user = $this->findOneBy(array('email' => $email));
-            return $this->userFormater->transform($user);
+            if ($user) {
+                return $this->userFormater->transform($user);
+            } else {
+                return null;
+            }
         }
     }
 }
